@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>carte_habitation</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="src/style.css">
+  </head>
+<body>
+    <div>
+
+    <div id="selection">
+        <p class="titreclasse">Selection des paramètres</p>
+        <table>
+            <tr>
+                <td class="titresousclasse">Nature</td>
+            </tr>
+            <tr>
+                <td class = "titresous2">La proximité d'un lac est:</td>
+            </tr>
+            <tr>
+                <td class = "yesnobutton">
+                    <input type="radio" id="Lac" name="lacyesno" value="0" checked onclick="importanceselection()"/> Attractive
+                    <input type="radio" id="Lac" name="lacyesno" value="1" onclick="importanceselection()"/> Repoussante
+                </td>
+            </tr>
+            <tr>
+                <td class = "titresous2">La distance de sensibilité au lac:</td>
+            </tr>
+            <tr>
+                <td class = "distanceradio">
+                  <input type="radio" id="Lacdist" name="lacdist" value="0" checked onclick="distselection()"/> moins de 1km
+                  <input type="radio" id="Lacdist" name="lacdist" value="1" onclick="distselection()"/> moins de 5km
+                  <input type="radio" id="Lacdist" name="lacdist" value="2" onclick="distselection()"/> moins de 10km
+                </td>
+            </tr>
+            <tr>
+                <td class = "titresous2">La présence d'une forêt est:</td>
+            </tr>
+            <tr>
+                <td class = "yesnobutton">
+                    <input type="radio" id="Foret" name="foretyesno" value="0" checked onclick="importanceselection()"/> Attractive
+                    <input type="radio" id="Foret" name="foretyesno" value="1" onclick="importanceselection()"/> Repoussante
+                </td>
+            </tr>
+            <tr>
+                <td class = "titresous2">La distance de sensibilité à la forêt:</td>
+            </tr>
+            <tr>
+                <td class = "distanceradio">
+                  <input type="radio" id="Foretdist" name="foretdist" value="0" checked onclick="distselection()"/> moins de 1km
+                  <input type="radio" id="Foretdist" name="foretdist" value="1" onclick="distselection()"/> moins de 5km
+                </td>
+            </tr>
+            <tr>
+                <td class = "titresous2">La présence d'un étang est:</td>
+            </tr>
+            <tr>
+                <td class = "yesnobutton">
+                    <input type="radio" id="Etang" name="etangyesno" value="0" checked onclick="importanceselection()"/> Attractive
+                    <input type="radio" id="Etang" name="etangyesno" value="1" onclick="importanceselection()"/> Repoussante
+                </td>
+            </tr>
+            <tr>
+                <td class = "titresous2">La distance de sensibilité à l'étang:</td>
+            </tr>
+            <tr>
+                <td class = "distanceradio">
+                  <input type="radio" id="Etangdist" name="etangdist" value="0" checked onclick="distselection()"/> moins de 1km
+                  <input type="radio" id="Etangdist" name="etangdist" value="1"onclick="distselection()"/> moins de 5km
+                </td>
+            </tr>
+            <tr>
+                <td class="titresousclasse">Social</td>
+            </tr>
+            <tr>
+                <td class = "titresous2">La présence d'un village (>2'000 habitants) à moins de 2km est:</td>
+            </tr>
+            <tr>
+                <td class = "yesnobutton">
+                    <input type="radio" id="Village" name="villageyesno" value="0" checked onclick="importanceselection()"/> Attractive
+                    <input type="radio" id="Village" name="villageyesno" value="1" onclick="importanceselection()"/> Repoussante
+                </td>
+            </tr>
+            <tr>
+                <td class = "titresous2">La présence d'une ville (>10'000 habitants) à moins de 2km est:</td>
+            </tr>
+            <tr>
+                <td class = "yesnobutton">
+                    <input type="radio" id="Ville" name="villeyesno" value="0" checked onclick="importanceselection()"/> Attractive
+                    <input type="radio" id="Ville" name="villeyesno" value="1" onclick="importanceselection()"/> Repoussante
+                </td>
+            </tr>
+            <tr>
+                <td class = "titresous2">La présence d'une école primaire ou d'une école secondaire à moins de 1km est:</td>
+            </tr>
+            <tr>
+                <td class = "yesnobutton">
+                    <input type="radio" id="Ecoleprim" name="ecoleprimyesno" value="0" checked onclick="importanceselection()"/> Attractive
+                    <input type="radio" id="Ecoleprim" name="ecoleprimyesno" value="1" onclick="importanceselection()"/> Repoussante
+                </td>
+            </tr>
+            <tr>
+                <td class = "titresous2">La présence d'un collège ou d'une université à moins de 1km est:</td>
+            </tr>
+            <tr>
+                <td class = "yesnobutton">
+                    <input type="radio" id="Ecoleuni" name="ecoleuniyesno" value="0" checked onclick="importanceselection()"/> Attractive
+                    <input type="radio" id="Ecoleuni" name="ecoleuniyesno" value="1" onclick="importanceselection()"/> Repoussante
+                </td>
+            </tr>
+            <tr>
+                <td class = "titresous2">La distance de sensibilité au collège et à l'université:</td>
+            </tr>
+            <tr>
+                <td class = "distanceradio">
+                  <input type="radio" id="Ecoleunidist" name="ecoleunidist" value="0" checked onclick="distselection()"/> moins de 1km
+                  <input type="radio" id="Ecoleunidist" name="ecoleunidist" value="1"onclick="distselection()"/> moins de 10km
+                </td>
+            </tr>
+            <tr>
+                <td class="titresousclasse">Exclusion et Dangers</td>
+            </tr>
+            <tr>
+                <td class = "titresous2">Ajouter les dangers naturels "moyens" et "faible" comme caractéristique repoussante</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="Dangerfm" name="dangerfm" value="0" checked onclick="importanceselection()"/> Oui
+                    <input type="radio" id="Dangerfm" name="dangerfm" value="1" onclick="importanceselection()"/> Non
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" id="exclusion" name="exclusion button" unchecked onclick="exclusionlayer()"/> Afficher les Zones non appropriée à la construction
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" id="frlayer" name="canton button" unchecked onclick="frlayer()"/> Afficher les limites du canton de Fribourg
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <input type="radio" id="pie1" name="Pie radio" value="1" checked onclick="test()"/> lac test
+                <input type="radio" id="pie1" name="Pie radio" value="0" onclick="test()"/> foret test
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="map"></div>
+
+    <div id="rangevalue">
+      <table>
+        <tr>
+          <td class = "titreclasse"> Importance des caractéristiques (allant de nul à très importante)</td>
+        </tr>
+        <tr>
+            <td class="titresousclasse">Nature</td>
+        </tr>
+        <tr>
+          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderlac" onchange="importanceValue()">Importance du lac</td>
+        </tr>
+        <tr>
+          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderforet" onchange="importanceValue()">Importance de la forêt</td>
+        </tr>
+        <tr>
+          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="slideretang" onchange="importanceValue()">Importance de l'étang</td>
+        </tr>
+        <tr>
+            <td class="titresousclasse">Social</td>
+        </tr>
+        <tr>
+          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="slidervillage" onchange="importanceValue()">Importance du village</td>
+        </tr>
+        <tr>
+          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderville" onchange="importanceValue()">Importance du ville</td>
+        </tr>
+        <tr>
+          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderecoleprim" onchange="importanceValue()">Importance des écoles primaires et secondaires</td>
+        </tr>
+        <tr>
+          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderecoleuni" onchange="importanceValue()">Importance des collèges et universités</td>
+        </tr>
+        <tr>
+            <td class="titresousclasse">Dangers naturels</td>
+        </tr>
+        <tr>
+          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderdangerfm" onchange="importanceValue()">Importance des dangers naturels "moyens" et "faibles"</td>
+        </tr>
+      </table>
+    </div>
+    </div>
+
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script src="https://unpkg.com/geotiff@1.0.0-beta.6/dist/geotiff.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet-geotiff-2/dist/leaflet-geotiff.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plotty/dist/plotty.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-geotiff-2/dist/leaflet-geotiff-plotty.js"></script>
+
+    <script src="src/main.js"></script>
+</body>
