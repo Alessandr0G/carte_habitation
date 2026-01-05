@@ -306,7 +306,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         bbox: r1.bbox
     };
 };
-
+//TEst
 function createRasterCanvas(result) {
   console.log(result.width, result.height, result.data.slice(0, 10));
   const uniqueValues = Array.from(new Set(result.data));
