@@ -1,4 +1,7 @@
 let map;
+let sumLayer = null;
+let exclusionLayer = null;
+let frLayer = null;
 let currentLayer = null;
 
 function MapCreation() {
@@ -11,20 +14,62 @@ function MapCreation() {
 
 MapCreation();
 
-function addLayer(tiffUrl, colorScale_x = 'viridis', opacityValue = 0.6, valeurmax=2.02, valeurmin=1) {
-    // , colorScale_x = 'viridis'
-    currentLayer = L.leafletGeotiff(tiffUrl, {
-        band: 0,
-        opacity: opacityValue,
-        noDataValue: 0,  // <-- IGNORE tous les pixels = 0
-        renderer: L.LeafletGeotiff.plotty({
-            displayMin: valeurmin,  // min de tes valeurs valides
-            displayMax: valeurmax,  // max de tes valeurs valides
-            colorScale: colorScale_x,
-            applyDisplayRange: true
-        })
-    });
-    currentLayer.addTo(map);
+async function addLayer(
+    group,
+    tiffUrl,
+    color = [255, 0, 0], // RGB
+    opacityValue = 0.6,
+    valeurmin = 1,
+    valeurmax = 2
+) {
+    const raster = await loadRaster(tiffUrl);
+
+    // if (currentLayer) map.removeLayer(currentLayer);
+
+    // Create canvas
+    const canvas = document.createElement('canvas');
+    canvas.width = raster.width;
+    canvas.height = raster.height;
+
+    const ctx = canvas.getContext('2d');
+    const img = ctx.createImageData(raster.width, raster.height);
+
+    for (let i = 0; i < raster.data.length; i++) {
+        const v = raster.data[i];
+        const idx = i * 4;
+
+        if (!Number.isFinite(v) || v < valeurmin || v > valeurmax) {
+            img.data[idx + 3] = 0; // transparent
+        } else {
+            img.data[idx]     = color[0];
+            img.data[idx + 1] = color[1];
+            img.data[idx + 2] = color[2];
+            img.data[idx + 3] = Math.round(opacityValue * 255);
+        }
+    }
+
+    ctx.putImageData(img, 0, 0);
+
+    const layer = L.imageOverlay(
+        canvas.toDataURL(),
+        [
+            [raster.bbox[1], raster.bbox[0]],
+            [raster.bbox[3], raster.bbox[2]]
+        ]
+    );
+
+    layer.addTo(map);
+
+    // 👇 STORE BY GROUP
+    if (group === "exclusion") {
+        exclusionLayer = layer;
+    } else if (group === "frlayer") {
+        frLayer = layer;
+    } else if (group === "sumLayer") {
+        sumLayer = layer;
+    } else {
+        currentLayer = layer;
+    }
 };
 
 function importanceValue() {
@@ -158,30 +203,38 @@ function distselection(){
 // HERE 1
 
 async function loadRaster(url) {
-    const tiff = await GeoTIFF.fromUrl(url);
+    const response = await fetch(url, {
+        cache: "no-store",
+        headers: {
+            "Cache-Control": "no-cache"
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch ${url}`);
+    }
+
+    const arrayBuffer = await response.arrayBuffer();
+
+    // SAFETY CHECK (very useful)
+    if (arrayBuffer.byteLength < 100) {
+        throw new Error(`Invalid TIFF file (too small): ${url}`);
+    }
+
+    const tiff = await GeoTIFF.fromArrayBuffer(arrayBuffer);
     const image = await tiff.getImage();
 
     const width = image.getWidth();
     const height = image.getHeight();
-
-    if (!Number.isInteger(width) || !Number.isInteger(height)) {
-        throw new Error('Invalid raster dimensions');
-    }
-
     const data = await image.readRasters({ interleave: true });
 
     return {
         data,
         width,
         height,
-        bbox: image.getBoundingBox() ?? [
-            image.getOrigin()[0],
-            image.getOrigin()[1] - height * image.getResolution()[1],
-            image.getOrigin()[0] + width * image.getResolution()[0],
-            image.getOrigin()[1]
-        ]
+        bbox: image.getBoundingBox()
     };
-};
+}
 
 function mergeBooleanLayers(r1, r2) {
     if (r1.width !== r2.width || r1.height !== r2.height) {
@@ -411,19 +464,18 @@ function sumLayers() {
 function exclusionlayer() {
     const exclusionCheckbox = document.getElementById('exclusion');
     if (exclusionCheckbox.checked) {
-        addLayer('Data/Exclusion/Avalanche_exclusion_WGS_boolean.tif', "greys", 1);
-        addLayer('Data/Exclusion/Chute_pierre_exclusion_WGS_boolean.tif', "greys", 1);
-        addLayer('Data/Exclusion/Crues_exclusion_WGS_boolean.tif', "greys", 1);
-        addLayer('Data/Exclusion/Eau_exclusion_WGS_boolean.tif', "greys", 1);
-        addLayer('Data/Exclusion/Effondrement_exclusion_WGS_boolean.tif', "greys", 1);
-        addLayer('Data/Exclusion/G_perm_exclusion_WGS_boolean.tif', "greys", 1);
-        addLayer('Data/Exclusion/G_spon_exclusion_WGS_boolean.tif', "greys", 1);
-        addLayer('Data/Exclusion/Lave_torr_exclusion_WGS_boolean.tif', "greys", 1);
+        addLayer("exclusion",'Data/Exclusion/Avalanche_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
+        addLayer("exclusion",'Data/Exclusion/Chute_pierre_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
+        addLayer("exclusion",'Data/Exclusion/Crues_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
+        addLayer("exclusion",'Data/Exclusion/Eau_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
+        addLayer("exclusion",'Data/Exclusion/Effondrement_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
+        addLayer("exclusion",'Data/Exclusion/G_perm_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
+        addLayer("exclusion",'Data/Exclusion/G_spon_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
+        addLayer("exclusion",'Data/Exclusion/Lave_torr_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
     } else {
-        if (currentLayer) {
-            map.removeLayer(currentLayer);
-            currentLayer = null;
-        }
+        // 👇 REMOVE ONLY EXCLUSION LAYERS
+        map.removeLayer(exclusionLayer);
+        exclusionLayer = [];
     }
 };
 
