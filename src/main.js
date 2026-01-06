@@ -166,6 +166,7 @@ function importanceselection() {
 
 function distselection(){
   const dist_lac = document.querySelector("input[id=Lacdist]:checked").value;
+  let dist_lac_files;
   if(dist_lac === "0"){
     const dist_lac_files = "1km";
   } else if(dist_lac === "1"){
@@ -174,18 +175,21 @@ function distselection(){
     const dist_lac_files = "10km";
   };
   const dist_foret = document.querySelector("input[id=Foretdist]:checked").value;
+  let dist_foret_files;
   if(dist_foret === "0"){
     const dist_foret_files = "1km";
   } else if(dist_foret === "1"){
     const dist_foret_files = "5km";
   };
   const dist_etang = document.querySelector("input[id=Etangdist]:checked").value;
+  let dist_etang_files;
   if(dist_etang === "0"){
     const dist_etang_files = "1km";
   } else if(dist_etang === "1"){
     const dist_etang_files = "5km";
   };
   const dist_uni = document.querySelector("input[id=Ecoleunidist]:checked").value;
+  let dist_uni_files;
   if(dist_uni === "0"){
     const dist_uni_files = "1km";
   } else if(dist_uni === "1"){
@@ -262,7 +266,9 @@ function mergeBooleanLayers(r1, r2) {
 };
 
 async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, url9, url10,
-    url11, url12, url13, url14, url15, url16, url17, url18, url19, url20, url21, url22) {
+    url11, url12, url13, url14, url15, url16, url17, url18, url19
+    //, url20, url21, url22
+    ) {
     const layer_Avalanche = await loadRaster(url1);
     const layer_Chute_P = await loadRaster(url2);
     const layer_Crue = await loadRaster(url3);
@@ -282,9 +288,9 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     const layer_village_moins = await loadRaster(url17);
     const layer_village_plus = await loadRaster(url18);
     const layer_ecole_prim = await loadRaster(url19);
-    const layer_ecole_uni_1 = await loadRaster(url20);
-    const layer_ecole_uni_5 = await loadRaster(url21);
-    const layer_ecole_uni_10 = await loadRaster(url22); // Social
+    // const layer_ecole_uni_1 = await loadRaster(url20);
+    // const layer_ecole_uni_5 = await loadRaster(url21);
+    // const layer_ecole_uni_10 = await loadRaster(url22); // Social
 
     let layer_ville, layer_village;
     let layer_Lac, layer_Foret, layer_Etang, layer_Uni;
@@ -297,9 +303,10 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     const r_ville = r_values.ville;
     const r_village = r_values.village;
     const r_prim = r_values.ecole_prim;
-    const r_uni = r_values.ecole_uni;
+    // const r_uni = r_values.ecole_uni;
 
-    const mean_r = (r_danger + r_lac + r_foret + r_etang + r_ville + r_village + r_prim + r_uni) / 8;
+    const mean_r = (r_danger + r_lac + r_foret + r_etang + r_ville + r_village + r_prim // + r_uni
+    ) / 7;
 
     // Selection des couches en fonction des distances et attraction/repulsion
     const dist_files = distselection();
@@ -320,11 +327,11 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     } else {
         layer_Etang = mergeBooleanLayers(layer_Etng_1,layer_Etng_5);
     };
-    if(dist_files.uni_files === "1km") {
-        layer_Uni = layer_ecole_uni_1;
-    } else {
-        layer_Uni = mergeBooleanLayers(mergeBooleanLayers(layer_ecole_uni_1,layer_ecole_uni_5),layer_ecole_uni_10);
-    };
+    // if(dist_files.uni_files === "1km") {
+    //     layer_Uni = layer_ecole_uni_1;
+    // } else {
+    //     layer_Uni = mergeBooleanLayers(mergeBooleanLayers(layer_ecole_uni_1,layer_ecole_uni_5),layer_ecole_uni_10);
+    // };
     if (r_ville === 0) {
         layer_ville = layer_ville_moins;
     } else {
@@ -345,7 +352,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     const x_ville = Number(x_values.ville_x);
     const x_village = Number(x_values.village_x);
     const x_prim = Number(x_values.prim_x);
-    const x_uni = Number(x_values.uni_x);
+    // const x_uni = Number(x_values.uni_x);
 
     const sum = new Float32Array(layer_Avalanche.data.length);
 
@@ -365,7 +372,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         let v11 = layer_ville.data[i];
         let v12 = layer_village.data[i];
         let v13 = layer_ecole_prim.data[i];
-        let v14 = layer_Uni.data[i];
+        // let v14 = layer_Uni.data[i];
 
         // Guard against NaN, Infinity, or sentinel large negative values
         if (!Number.isFinite(v1) || Math.abs(v1) > 1e30) v1 = 0;
@@ -381,7 +388,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         if (!Number.isFinite(v11) || Math.abs(v11) > 1e30) v11 = 0;
         if (!Number.isFinite(v12) || Math.abs(v12) > 1e30) v12 = 0;
         if (!Number.isFinite(v13) || Math.abs(v13) > 1e30) v13 = 0;
-        if (!Number.isFinite(v14) || Math.abs(v14) > 1e30) v14 = 0;
+        // if (!Number.isFinite(v14) || Math.abs(v14) > 1e30) v14 = 0;
 
         // Some boolean rasters use 255 or other positive values for "true".
         v1 = v1 > 0.5 ? 1 : 0;
@@ -397,13 +404,13 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         v11 = v11 > 0.5 ? 1 : 0;
         v12 = v12 > 0.5 ? 1 : 0;
         v13 = v13 > 0.5 ? 1 : 0;
-        v14 = v14 > 0.5 ? 1 : 0;
+        // v14 = v14 > 0.5 ? 1 : 0;
 
         sum[i] = x_danger * r_danger * v1 + x_danger * r_danger * v2 + x_danger * r_danger * v3 
         + x_danger * r_danger * v4 + x_danger * r_danger * v5 + x_danger * r_danger * v6 
         + x_danger * r_danger * v7 + x_lac * r_lac * v8 + x_foret * r_foret * v9 
         + x_etang * r_etang * v10 + x_ville * r_ville * v11 + x_village * r_village * v12 
-        + x_prim * r_prim * v13 + x_uni * r_uni * v14;
+        + x_prim * r_prim * v13 + 100; // + x_uni * r_uni * v14;
     }
     console.log('Sum data sample:', sum.slice(1500, 2600));
     return {
@@ -429,6 +436,9 @@ function createRasterCanvas(result) {
 
     const ctx = canvas.getContext('2d');
     const img = ctx.createImageData(result.width, result.height);
+    
+    console.log("R_mean:", result.mean_r);
+    console.log("dark red threshold:", (-10)*result.mean_r+100);
 
     for (let i = 0; i < result.data.length; i++) {
         const v = result.data[i]; // 0,1,2
@@ -438,39 +448,41 @@ function createRasterCanvas(result) {
         img.data[idx + 1] = 0; // G
         img.data[idx + 2] = 0; // B
 
-        if (v < (-10)*result.mean_r) {
+        if (v <= 0) {
+            img.data[idx + 3] = 0;
+        }else if (v < (-10)*result.mean_r+100) {
+            img.data[idx]     = 150;
+            img.data[idx + 1] = 0;
+            img.data[idx + 2] = 0; // dark red
+            img.data[idx + 3] = 180;
+        } else if (v < (-6.25)*result.mean_r+100) {
+            img.data[idx]     = 255;
+            img.data[idx + 1] = 0;
+            img.data[idx + 2] = 0; // red
+            img.data[idx + 3] = 180;
+        } else if (v < (-2.5)*result.mean_r+100) {
             img.data[idx]     = 255;
             img.data[idx + 1] = 150;
-            img.data[idx + 2] = 0; // dark red
-            img.data[idx + 3] = 0;
-        } else if (v < (-6.25)*result.mean_r) {
-            img.data[idx]     = 255;
-            img.data[idx + 1] = 255;
-            img.data[idx + 2] = 0; // red
-            img.data[idx + 3] = 0;
-        } else if (v < (-2.5)*result.mean_r) {
-            img.data[idx]     = 255;
-            img.data[idx + 1] = 100;
             img.data[idx + 2] = 0; // orange
             img.data[idx + 3] = 180;
-        } else if (v  < (1.5)*result.mean_r) {
+        } else if (v  < (1.5)*result.mean_r+100) {
             img.data[idx]     = 255;
             img.data[idx + 1] = 255;
             img.data[idx + 2] = 0; // yellow
             img.data[idx + 3] = 180;
-        } else if (v < (5.5)*result.mean_r) {
-            img.data[idx]     = 255;
+        } else if (v < (5.5)*result.mean_r+100) {
+            img.data[idx]     = 0;
             img.data[idx + 1] = 255;
             img.data[idx + 2] = 0; // green
             img.data[idx + 3] = 180;
-        } else if (v < (9.5)*result.mean_r){
-            img.data[idx]     = 255;
-            img.data[idx + 1] = 0;
-            img.data[idx + 2] = 0; // green
-            img.data[idx + 3] = 255;
-        } else {
-            img.data[idx]     = 255;
+        } else if (v < (9.5)*result.mean_r+100){
+            img.data[idx]     = 0;
             img.data[idx + 1] = 255;
+            img.data[idx + 2] = 255; // green
+            img.data[idx + 3] = 180;
+        } else {
+            img.data[idx]     = 0;
+            img.data[idx + 1] = 0;
             img.data[idx + 2] = 255; // light blue
             img.data[idx + 3] = 180;
         };
@@ -490,25 +502,25 @@ async function addSummedLayer(files_url = [
     'Data/Incitation/Nature/Foret_grd_5km_WGS_boolean.tif',
     'Data/Incitation/Nature/Etang_1km_WGS_boolean.tif',
     'Data/Incitation/Nature/Etang_5km_WGS_boolean.tif',
-    'Data/Incitation/Nature/Lac_1km_WGS_boolean.tif',
-    'Data/Incitation/Nature/Lac_5km_WGS_boolean.tif',
+    'Data/Incitation/Nature/Lac_1km_WGS_boolean_v2.tif',
+    'Data/Incitation/Nature/Lac_5km_WGS_boolean_v2.tif',
     'Data/Incitation/Nature/Lac_10km_WGS_boolean.tif', //13
     'Data/Incitation/Social/ville_moins_2km_WGS_boolean.tif',
     'Data/Incitation/Social/ville_plus_2km_WGS_boolean.tif',
     'Data/Incitation/Social/village_moins_2km_WGS_boolean.tif',
     'Data/Incitation/Social/village_plus_2km_WGS_boolean.tif',
     'Data/Incitation/Social/ecole_prim_co_1km_WGS_boolean.tif',
-    'Data/Incitation/Social/ecole_uni_1km_WGS_boolean.tif',
-    'Data/Incitation/Social/ecole_uni_5km_WGS_boolean.tif',
-    'Data/Incitation/Social/ecole_uni_10km_WGS_boolean.tif' //21
+    //'Data/Incitation/Social/ecole_uni_1km_WGS_boolean_v4.tif',
+    //'Data/Incitation/Social/ecole_uni_5km_WGS_boolean.tif', 
+    //'Data/Incitation/Social/ecole_uni_10km_WGS_boolean.tif' //21
 ]) {
     const result = await sumBooleanTiffs(
         files_url[0], files_url[1], files_url[2], files_url[3], files_url[4],
         files_url[5], files_url[6], files_url[7], files_url[8],
         files_url[9], files_url[10], files_url[11], files_url[12],
         files_url[13], files_url[14], files_url[15], files_url[16],
-        files_url[17], files_url[18], files_url[19], files_url[20],
-        files_url[21]
+        files_url[17], files_url[18]//, files_url[19], files_url[20],
+        //files_url[21]
     );
     console.log(result.bbox);
 
