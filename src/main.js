@@ -420,7 +420,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         data: sum,
         width: layer_Avalanche.width,
         height: layer_Avalanche.height,
-        bbox: layer_Avalanche.bbox,
+        bbox: layer_Avalanche.bbox, 
         mean_r: mean_r
     };
 };
