@@ -147,7 +147,7 @@ function importanceselection() {
     const dangerfm_yesno =
         document.querySelector('input[name="dangerfm"]:checked').value;
     if (dangerfm_yesno === "0") {
-        dangerfm_val = 1;
+        dangerfm_val = -1;
     } else {
         dangerfm_val = 0;
     };
@@ -406,11 +406,14 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         v13 = v13 > 0.5 ? 1 : 0;
         // v14 = v14 > 0.5 ? 1 : 0;
 
-        sum[i] = x_danger * r_danger * v1 + x_danger * r_danger * v2 + x_danger * r_danger * v3 
+        const calculatedValue = x_danger * r_danger * v1 + x_danger * r_danger * v2 + x_danger * r_danger * v3 
         + x_danger * r_danger * v4 + x_danger * r_danger * v5 + x_danger * r_danger * v6 
         + x_danger * r_danger * v7 + x_lac * r_lac * v8 + x_foret * r_foret * v9 
         + x_etang * r_etang * v10 + x_ville * r_ville * v11 + x_village * r_village * v12 
-        + x_prim * r_prim * v13 + 100; // + x_uni * r_uni * v14;
+        + x_prim * r_prim * v13; // + x_uni * r_uni * v14;
+        
+        // Only apply offset for pixels with at least some value (within region)
+        sum[i] = calculatedValue > 0 ? calculatedValue + 100 : 0;
     }
     console.log('Sum data sample:', sum.slice(1500, 2600));
     return {
@@ -539,8 +542,9 @@ async function addSummedLayer(files_url = [
     console.log("finally adding summed layer");
     currentLayer.addTo(map);
 };
+function loadMap() {
 addSummedLayer();
-
+};
 // HERE 2
 
 function sumLayers() {
