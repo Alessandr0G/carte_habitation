@@ -471,7 +471,8 @@ function createRasterCanvas(result) {
     const img = ctx.createImageData(result.width, result.height);
     
     console.log("R_mean:", result.mean_r);
-    console.log("dark red threshold:", (-10)*result.mean_r+100);
+    console.log("dark red threshold:", (-10)*result.mean_r);
+    console.log("blue threshold:", (8.5)*result.mean_r);
 
     for (let i = 0; i < result.data.length; i++) {
         const v = result.data[i]; // 0,1,2
