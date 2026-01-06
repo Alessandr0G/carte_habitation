@@ -134,3 +134,27 @@ async function addSummedLayer(files_url = [
     currentLayer.addTo(map);
 };
 addSummedLayer();
+
+
+// ELEMENTS NON DEFINITIFS DANS LE TRAVAIL FINAL
+
+function test() {
+    const pieValue = document.querySelector('input[name="Pie radio"]:checked').value;
+    if (pieValue === "1") {
+        addLayer('Data/Incitation/Nature/Lac_10km_WGS_boolean.tif');
+    } else {
+        addLayer('Data/Incitation/Nature/Foret_grd_1km_WGS_boolean.tif');
+    };
+};
+
+console.log(window.GeoTIFF);
+async function testTiff(url) {
+    const tiff = await GeoTIFF.fromUrl(url);
+    const image = await tiff.getImage();
+    console.log('Raster width:', image.getWidth(), 'height:', image.getHeight());
+    const data = await image.readRasters();
+    console.log('First pixel value:', data[0][0]);
+    console.log('Unique values:', Array.from(new Set(data[0])));
+};
+testTiff('Data/Incitation/Nature/Lac_10km_WGS_boolean.tif');
+

@@ -1,8 +1,8 @@
 let map;
-let sumLayer = null;
-let exclusionLayer = null;
-let frLayer = null;
-let currentLayer = null;
+let sumLayer = [];
+let exclusionLayer = [];
+let frLayer = [];
+let currentLayer = [];
 
 function MapCreation() {
     map = L.map('map').setView([46.72, 7.05], 10);
@@ -62,13 +62,13 @@ async function addLayer(
 
     // 👇 STORE BY GROUP
     if (group === "exclusion") {
-        exclusionLayer = layer;
+        exclusionLayer.push(layer);
     } else if (group === "frlayer") {
-        frLayer = layer;
+        frLayer.push(layer);
     } else if (group === "sumLayer") {
-        sumLayer = layer;
+        sumLayer.push(layer);
     } else {
-        currentLayer = layer;
+        currentLayer.push(layer);
     }
 };
 
@@ -167,29 +167,29 @@ function importanceselection() {
 function distselection(){
   const dist_lac = document.querySelector("input[id=Lacdist]:checked").value;
   if(dist_lac === "0"){
-    const dist_lac_files = ("1km");
+    const dist_lac_files = "1km";
   } else if(dist_lac === "1"){
-    const dist_lac_files = ("5km");
+    const dist_lac_files = "5km";
   } else if(dist_lac === "2"){
-    const dist_lac_files = ("10km");
+    const dist_lac_files = "10km";
   };
   const dist_foret = document.querySelector("input[id=Foretdist]:checked").value;
   if(dist_foret === "0"){
-    const dist_foret_files = ("1km");
+    const dist_foret_files = "1km";
   } else if(dist_foret === "1"){
-    const dist_foret_files = ("5km");
+    const dist_foret_files = "5km";
   };
   const dist_etang = document.querySelector("input[id=Etangdist]:checked").value;
   if(dist_etang === "0"){
-    const dist_etang_files = ("1km");
+    const dist_etang_files = "1km";
   } else if(dist_etang === "1"){
-    const dist_etang_files = ("5km");
+    const dist_etang_files = "5km";
   };
   const dist_uni = document.querySelector("input[id=Ecoleunidist]:checked").value;
   if(dist_uni === "0"){
-    const dist_uni_files = ("1km");
+    const dist_uni_files = "1km";
   } else if(dist_uni === "1"){
-    const dist_uni_files = ("10km");
+    const dist_uni_files = "10km";
   };
   return {
     lac_files: dist_lac_files,
@@ -220,7 +220,9 @@ async function loadRaster(url) {
     if (arrayBuffer.byteLength < 100) {
         throw new Error(`Invalid TIFF file (too small): ${url}`);
     }
-
+    
+    console.log("Loaded file:", url, "size:", arrayBuffer.byteLength);
+    
     const tiff = await GeoTIFF.fromArrayBuffer(arrayBuffer);
     const image = await tiff.getImage();
 
@@ -284,6 +286,8 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     const layer_ecole_uni_5 = await loadRaster(url21);
     const layer_ecole_uni_10 = await loadRaster(url22); // Social
 
+    let layer_ville, layer_village;
+    let layer_Lac, layer_Foret, layer_Etang, layer_Uni;
     // valeur attractives/repulsives
     const r_values = importanceselection();
     const r_danger = r_values.dangerfm;
@@ -295,6 +299,8 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     const r_prim = r_values.ecole_prim;
     const r_uni = r_values.ecole_uni;
 
+    const mean_r = (r_danger + r_lac + r_foret + r_etang + r_ville + r_village + r_prim + r_uni) / 8;
+
     // Selection des couches en fonction des distances et attraction/repulsion
     const dist_files = distselection();
     if (dist_files.lac_files === "1km") {
@@ -302,7 +308,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     } else if (dist_files.lac_files === "5km"){
         layer_Lac = mergeBooleanLayers(layer_Lac_1, layer_Lac_5);
     } else {
-        layer_Lac = mergedBooleanLayers(mergeBooleanLayers(layer_Lac_1, layer_Lac_5),layer_Lac_10);
+        layer_Lac = mergeBooleanLayers(mergeBooleanLayers(layer_Lac_1, layer_Lac_5),layer_Lac_10);
     };
     if(dist_files.foret_files === "1km") {
         layer_Foret = layer_Frt_1;
@@ -310,53 +316,102 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         layer_Foret = mergeBooleanLayers(layer_Frt_1,layer_Frt_5);
     };
     if(dist_files.etang_files === "1km") {
-        layer_Foret = layer_Etng_1;
+        layer_Etang = layer_Etng_1;
     } else {
-        layer_Foret = mergeBooleanLayers(layer_Etng_1,layer_Etng_5);
+        layer_Etang = mergeBooleanLayers(layer_Etng_1,layer_Etng_5);
     };
     if(dist_files.uni_files === "1km") {
         layer_Uni = layer_ecole_uni_1;
     } else {
         layer_Uni = mergeBooleanLayers(mergeBooleanLayers(layer_ecole_uni_1,layer_ecole_uni_5),layer_ecole_uni_10);
     };
+    if (r_ville === 0) {
+        layer_ville = layer_ville_moins;
+    } else {
+        layer_ville = layer_ville_plus;
+    };
+    if (r_village === 0) {
+        layer_village = layer_village_moins;
+    } else {
+        layer_village = layer_village_plus;
+    };
 
     // valeur d'importance du critère
-
     const x_values = importanceValue();
-    const x_lac = x_values.lac_x;
-    const x_foret = x_values.foret_x;
-    const x_etang = x_values.etang_x;
-    const x_ville = x_values.ville_x;
-    const x_village = x_values.village_x;
-    const x_prim = x_values.prim_x;
-    const x_uni = x_values.uni_x;
+    const x_danger = Number(x_values.dangersfm_x);
+    const x_lac = Number(x_values.lac_x);
+    const x_foret = Number(x_values.foret_x);
+    const x_etang = Number(x_values.etang_x);
+    const x_ville = Number(x_values.ville_x);
+    const x_village = Number(x_values.village_x);
+    const x_prim = Number(x_values.prim_x);
+    const x_uni = Number(x_values.uni_x);
 
-    // HERE ICI CONTINUE
-
-    const sum = new Float32Array(r1.data.length);
+    const sum = new Float32Array(layer_Avalanche.data.length);
 
     // Normalize values: treat nodata / invalid extremes as 0, and
     // convert any truthy raster values to boolean 1 (threshold > 0.5).
-    for (let i = 0; i < r1.data.length; i++) {
-        let v1 = r1.data[i];
-        let v2 = r2.data[i];
+    for (let i = 0; i < layer_Avalanche.data.length; i++) {
+        let v1 = layer_Avalanche.data[i];
+        let v2 = layer_Chute_P.data[i];
+        let v3 = layer_Crue.data[i];
+        let v4 = layer_Effondre.data[i];
+        let v5 = layer_G_perm.data[i];
+        let v6 = layer_G_spon.data[i];
+        let v7 = layer_Lave_torr.data[i];
+        let v8 = layer_Lac.data[i];
+        let v9 = layer_Foret.data[i];
+        let v10 = layer_Etang.data[i];
+        let v11 = layer_ville.data[i];
+        let v12 = layer_village.data[i];
+        let v13 = layer_ecole_prim.data[i];
+        let v14 = layer_Uni.data[i];
 
         // Guard against NaN, Infinity, or sentinel large negative values
         if (!Number.isFinite(v1) || Math.abs(v1) > 1e30) v1 = 0;
         if (!Number.isFinite(v2) || Math.abs(v2) > 1e30) v2 = 0;
+        if (!Number.isFinite(v3) || Math.abs(v3) > 1e30) v3 = 0;
+        if (!Number.isFinite(v4) || Math.abs(v4) > 1e30) v4 = 0;
+        if (!Number.isFinite(v5) || Math.abs(v5) > 1e30) v5 = 0;
+        if (!Number.isFinite(v6) || Math.abs(v6) > 1e30) v6 = 0;
+        if (!Number.isFinite(v7) || Math.abs(v7) > 1e30) v7 = 0;
+        if (!Number.isFinite(v8) || Math.abs(v8) > 1e30) v8 = 0;
+        if (!Number.isFinite(v9) || Math.abs(v9) > 1e30) v9 = 0;
+        if (!Number.isFinite(v10) || Math.abs(v10) > 1e30) v10 = 0;
+        if (!Number.isFinite(v11) || Math.abs(v11) > 1e30) v11 = 0;
+        if (!Number.isFinite(v12) || Math.abs(v12) > 1e30) v12 = 0;
+        if (!Number.isFinite(v13) || Math.abs(v13) > 1e30) v13 = 0;
+        if (!Number.isFinite(v14) || Math.abs(v14) > 1e30) v14 = 0;
 
         // Some boolean rasters use 255 or other positive values for "true".
         v1 = v1 > 0.5 ? 1 : 0;
         v2 = v2 > 0.5 ? 1 : 0;
+        v3 = v3 > 0.5 ? 1 : 0;
+        v4 = v4 > 0.5 ? 1 : 0;
+        v5 = v5 > 0.5 ? 1 : 0;
+        v6 = v6 > 0.5 ? 1 : 0;
+        v7 = v7 > 0.5 ? 1 : 0;
+        v8 = v8 > 0.5 ? 1 : 0;
+        v9 = v9 > 0.5 ? 1 : 0;
+        v10 = v10 > 0.5 ? 1 : 0;
+        v11 = v11 > 0.5 ? 1 : 0;
+        v12 = v12 > 0.5 ? 1 : 0;
+        v13 = v13 > 0.5 ? 1 : 0;
+        v14 = v14 > 0.5 ? 1 : 0;
 
-        sum[i] = v1 + v2;
+        sum[i] = x_danger * r_danger * v1 + x_danger * r_danger * v2 + x_danger * r_danger * v3 
+        + x_danger * r_danger * v4 + x_danger * r_danger * v5 + x_danger * r_danger * v6 
+        + x_danger * r_danger * v7 + x_lac * r_lac * v8 + x_foret * r_foret * v9 
+        + x_etang * r_etang * v10 + x_ville * r_ville * v11 + x_village * r_village * v12 
+        + x_prim * r_prim * v13 + x_uni * r_uni * v14;
     }
     console.log('Sum data sample:', sum.slice(1500, 2600));
     return {
         data: sum,
-        width: r1.width,
-        height: r1.height,
-        bbox: r1.bbox
+        width: layer_Avalanche.width,
+        height: layer_Avalanche.height,
+        bbox: layer_Avalanche.bbox,
+        mean_r: mean_r
     };
 };
 //TEst
@@ -382,25 +437,47 @@ function createRasterCanvas(result) {
         img.data[idx]     = 0; // R
         img.data[idx + 1] = 0; // G
         img.data[idx + 2] = 0; // B
-        
-        if (v === 0) {
-            img.data[idx + 3] = 0; // transparent
-        } else if (v === 1) {
-            img.data[idx]     = 100;
+
+        if (v < (-10)*result.mean_r) {
+            img.data[idx]     = 255;
             img.data[idx + 1] = 150;
-            img.data[idx + 2] = 255; // light blue
-            img.data[idx + 3] = 180;
-        } else if (v === 2) {
+            img.data[idx + 2] = 0; // dark red
+            img.data[idx + 3] = 0;
+        } else if (v < (-6.25)*result.mean_r) {
+            img.data[idx]     = 255;
+            img.data[idx + 1] = 255;
+            img.data[idx + 2] = 0; // red
+            img.data[idx + 3] = 0;
+        } else if (v < (-2.5)*result.mean_r) {
             img.data[idx]     = 255;
             img.data[idx + 1] = 100;
             img.data[idx + 2] = 0; // orange
             img.data[idx + 3] = 180;
-        }
-    }
+        } else if (v  < (1.5)*result.mean_r) {
+            img.data[idx]     = 255;
+            img.data[idx + 1] = 255;
+            img.data[idx + 2] = 0; // yellow
+            img.data[idx + 3] = 180;
+        } else if (v < (5.5)*result.mean_r) {
+            img.data[idx]     = 255;
+            img.data[idx + 1] = 255;
+            img.data[idx + 2] = 0; // green
+            img.data[idx + 3] = 180;
+        } else if (v < (9.5)*result.mean_r){
+            img.data[idx]     = 255;
+            img.data[idx + 1] = 0;
+            img.data[idx + 2] = 0; // green
+            img.data[idx + 3] = 255;
+        } else {
+            img.data[idx]     = 255;
+            img.data[idx + 1] = 255;
+            img.data[idx + 2] = 255; // light blue
+            img.data[idx + 3] = 180;
+        };
+    };
     ctx.putImageData(img, 0, 0);
     return canvas;
 };
-
 async function addSummedLayer(files_url = [
     'Data/Incitation/Dangers_fm/Avalanche_WGS_boolean.tif', //0
     'Data/Incitation/Dangers_fm/Chute_pierre_WGS_boolean.tif',
@@ -447,7 +524,7 @@ async function addSummedLayer(files_url = [
         ],
         { opacity: 0.8 }
     );
-
+    console.log("finally adding summed layer");
     currentLayer.addTo(map);
 };
 addSummedLayer();
@@ -473,8 +550,10 @@ function exclusionlayer() {
         addLayer("exclusion",'Data/Exclusion/G_spon_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
         addLayer("exclusion",'Data/Exclusion/Lave_torr_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
     } else {
-        // 👇 REMOVE ONLY EXCLUSION LAYERS
-        map.removeLayer(exclusionLayer);
+        // ✅ REMOVE EACH LAYER
+        exclusionLayer.forEach(layer => {
+            map.removeLayer(layer);
+        });
         exclusionLayer = [];
     }
 };
@@ -482,34 +561,14 @@ function exclusionlayer() {
 function frlayer() {
     const frlayerCheckbox = document.getElementById('frlayer');
     if (frlayerCheckbox.checked) {
-        addLayer('Data/Canton_WGS.tif', "greys", 0.7, 1, 30);
+        addLayer("frlayer",'Data/Canton_WGS.tif', "greys", 0.7, 1, 30);
     } else {
-        if (currentLayer) {
-            map.removeLayer(currentLayer);
-            currentLayer = null;
-        }
+        frLayer.forEach(layer => {
+            map.removeLayer(layer);
+        });
+        frLayer = [];
     }
 };
 
 
-// ELEMENTS NON DEFINITIFS DANS LE TRAVAIL FINAL
-
-function test() {
-    const pieValue = document.querySelector('input[name="Pie radio"]:checked').value;
-    if (pieValue === "1") {
-        addLayer('Data/Incitation/Nature/Lac_10km_WGS_boolean.tif');
-    } else {
-        addLayer('Data/Incitation/Nature/Foret_grd_1km_WGS_boolean.tif');
-    };
-};
-
-console.log(window.GeoTIFF);
-async function testTiff(url) {
-    const tiff = await GeoTIFF.fromUrl(url);
-    const image = await tiff.getImage();
-    console.log('Raster width:', image.getWidth(), 'height:', image.getHeight());
-    const data = await image.readRasters();
-    console.log('First pixel value:', data[0][0]);
-    console.log('Unique values:', Array.from(new Set(data[0])));
-};
-testTiff('Data/Incitation/Nature/Lac_10km_WGS_boolean.tif');
+console.log("Main JS loaded");
