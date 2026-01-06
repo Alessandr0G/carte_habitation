@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="src/style.css">
   </head>
 <body>
-    <div>
-
     <div id="selection">
         <p class="titreclasse">Selection des paramètres</p>
         <table>
@@ -143,12 +141,12 @@
             </tr>
             <tr>
                 <td>
-                    <input type="checkbox" id="exclusion" name="exclusion button" unchecked onclick="exclusionlayer()"/> Afficher les Zones non appropriée à la construction
+                    <input type="checkbox" id="exclusion" name="exclusion button" checked onclick="exclusionlayer()"/> Afficher les Zones non appropriée à la construction
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="checkbox" id="frlayer" name="canton button" unchecked onclick="frlayer()"/> Afficher les limites du canton de Fribourg
+                    <input type="checkbox" id="frlayer" name="canton button" checked onclick="frlayer()"/> Afficher les limites du canton de Fribourg
                 </td>
             </tr>
         </table>
@@ -156,54 +154,84 @@
 
     <div id="map">
     </div>
+    <div id="rightpart">
+        <div id="rangevalue">
+        <table>
+            <tr>
+            <td class = "titreclasse"> Importance des caractéristiques (allant de nul à très importante)</td>
+            </tr>
+            <tr>
+                <td class="titresousclasse">Nature</td>
+            </tr>
+            <tr>
+            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderlac" onchange="importanceValue()">Importance du lac</td>
+            </tr>
+            <tr>
+            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderforet" onchange="importanceValue()">Importance de la forêt</td>
+            </tr>
+            <tr>
+            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slideretang" onchange="importanceValue()">Importance de l'étang</td>
+            </tr>
+            <tr>
+                <td class="titresousclasse">Social</td>
+            </tr>
+            <tr>
+            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidervillage" onchange="importanceValue()">Importance du village</td>
+            </tr>
+            <tr>
+            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderville" onchange="importanceValue()">Importance du ville</td>
+            </tr>
+            <tr>
+            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderecoleprim" onchange="importanceValue()">Importance des écoles primaires et secondaires</td>
+            </tr>
+            <tr>
+            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderecoleuni" onchange="importanceValue()">Importance des collèges et universités</td>
+            </tr>
+            <tr>
+            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidergare" onchange="importanceValue()">Importance des gares</td>
+            </tr>
+            <tr>
+                <td class="titresousclasse">Dangers naturels</td>
+            </tr>
+            <tr>
+            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderdangerfm" onchange="importanceValue()">Importance des dangers naturels "moyens" et "faibles"</td>
+            </tr>
+        </table>
+        <div id="maplegend">
+            <div id="mapbuttons">
+                <button onclick="loadMap()">Charger la carte</button>
+                <button onclick="zoomresetMap()">Reset le zoom</button>
+            </div>
+            <p class="titreclasse"> Qualité de la zone </p>
+            <div id="legend">
+                <div id="couleurlegend">
+                    <div id="darkred"></div>
+                    <div id="red"></div>
+                    <div id="orange"></div>
+                    <div id="yellow"></div>
+                    <div id="green"></div>
+                    <div id="lightblue"></div>
+                    <div id="blue"></div>
+                    <div id="black"></div>
+                    <div id="blackCont"></div>
 
-    <div id="rangevalue">
-      <table>
-        <tr>
-          <td class = "titreclasse"> Importance des caractéristiques (allant de nul à très importante)</td>
-        </tr>
-        <tr>
-            <td class="titresousclasse">Nature</td>
-        </tr>
-        <tr>
-          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderlac" onchange="importanceValue()">Importance du lac</td>
-        </tr>
-        <tr>
-          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderforet" onchange="importanceValue()">Importance de la forêt</td>
-        </tr>
-        <tr>
-          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="slideretang" onchange="importanceValue()">Importance de l'étang</td>
-        </tr>
-        <tr>
-            <td class="titresousclasse">Social</td>
-        </tr>
-        <tr>
-          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidervillage" onchange="importanceValue()">Importance du village</td>
-        </tr>
-        <tr>
-          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderville" onchange="importanceValue()">Importance du ville</td>
-        </tr>
-        <tr>
-          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderecoleprim" onchange="importanceValue()">Importance des écoles primaires et secondaires</td>
-        </tr>
-        <tr>
-          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderecoleuni" onchange="importanceValue()">Importance des collèges et universités</td>
-        </tr>
-        <tr>
-          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidergare" onchange="importanceValue()">Importance des gares</td>
-        </tr>
-        <tr>
-            <td class="titresousclasse">Dangers naturels</td>
-        </tr>
-        <tr>
-          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderdangerfm" onchange="importanceValue()">Importance des dangers naturels "moyens" et "faibles"</td>
-        </tr>
-    </table>
-    <div id="mapbutton">
-            <button onclick="loadMap()">Charger la carte</button>
-            <button onclick="zoomresetMap()">Reset le zoom</button>
-    </div>
-    </div>
+
+                </div>
+                <div id="explicationlegend" class="LegendText"> 
+                    <p> Excellente compatibilité </p>
+                    <p> Très bonne compatibilité </p>
+                    <p> Bonne compatibilité </p>
+                    <p> Moyenne compatibilité </p>
+                    <p> Faible compatibilité </p>
+                    <p> Très faible compatibilité </p>
+                    <p> Mauvaise compatibilité </p>
+                    <p> Innapropriées à la construction </p>
+                    <p> Contour du canton de Fribourg </p>
+
+                </div>
+                
+            </div>
+        </div>
     </div>
 
 

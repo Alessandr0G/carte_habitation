@@ -162,7 +162,6 @@ function importanceselection() {
         document.querySelector('input[name="dangerfm"]:checked').value;
     if (dangerfm_yesno === "0") {
         dangerfm_val = -1;
-        document.querySelector('input[name="sliderdangerfm"]').value = 2;
     } else {
         dangerfm_val = 0;
         document.querySelector('input[name="sliderdangerfm"]').value = 0;
@@ -487,12 +486,12 @@ function createRasterCanvas(result) {
 
         if (!Number.isFinite(v)) {
             img.data[idx + 3] = 0;
-        }else if (v < (-10)*result.mean_r) {
+        }else if (v < (-9)*result.mean_r) {
             img.data[idx]     = 150;
             img.data[idx + 1] = 0;
             img.data[idx + 2] = 0; // dark red
             img.data[idx + 3] = 180;
-        } else if (v < (-5.25)*result.mean_r) {
+        } else if (v < (-5)*result.mean_r) {
             img.data[idx]     = 255;
             img.data[idx + 1] = 0;
             img.data[idx + 2] = 0; // red
@@ -507,12 +506,12 @@ function createRasterCanvas(result) {
             img.data[idx + 1] = 255;
             img.data[idx + 2] = 0; // yellow
             img.data[idx + 3] = 180;
-        } else if (v < (4.5)*result.mean_r) {
+        } else if (v < (3.5)*result.mean_r) {
             img.data[idx]     = 0;
             img.data[idx + 1] = 255;
             img.data[idx + 2] = 0; // green
             img.data[idx + 3] = 180;
-        } else if (v < (8.5)*result.mean_r){
+        } else if (v < (7.5)*result.mean_r){
             img.data[idx]     = 0;
             img.data[idx + 1] = 255;
             img.data[idx + 2] = 255; // light blue
@@ -574,8 +573,23 @@ async function addSummedLayer(files_url = [
     console.log("finally adding summed layer");
     currentLayer.addTo(map);
 };
-function loadMap() {
-addSummedLayer();
+
+async function loadMap() {
+    exclusionLayer.forEach(layer => {
+            map.removeLayer(layer);
+        });
+    frLayer.forEach(layer => {
+            map.removeLayer(layer);
+        });
+    sumLayer.forEach(layer => {
+            map.removeLayer(layer);
+        });
+    sumLayer = [];
+    exclusionLayer = [];
+    frLayer = [];
+    await addSummedLayer();
+    exclusionlayer();
+    frlayer();
 };
 // HERE 2
 
@@ -609,7 +623,7 @@ function exclusionlayer() {
 function frlayer() {
     const frlayerCheckbox = document.getElementById('frlayer');
     if (frlayerCheckbox.checked) {
-        addLayer("frlayer",'Data/Canton_WGS.tif', "greys", 0.7, 1, 30);
+        addLayer("frlayer",'Data/Canton_WGS.tif', "greys", 1, 1, 30);
     } else {
         frLayer.forEach(layer => {
             map.removeLayer(layer);
