@@ -93,6 +93,7 @@ function importanceValue() {
     const village_imp_val = document.querySelector('input[name="slidervillage"]').value
     const prim_imp_val = document.querySelector('input[name="sliderecoleprim"]').value
     const uni_imp_val = document.querySelector('input[name="sliderecoleuni"]').value
+    const gare_imp_val = document.querySelector('input[name="slidergare"]').value
 
     return {
         dangersfm_x: dangersfm_imp_val,
@@ -102,7 +103,8 @@ function importanceValue() {
         ville_x: ville_imp_val,
         village_x: village_imp_val,
         prim_x: prim_imp_val,
-        uni_x: uni_imp_val
+        uni_x: uni_imp_val,
+        gare_x: gare_imp_val
     }
 }
 
@@ -165,6 +167,13 @@ function importanceselection() {
         dangerfm_val = 0;
         document.querySelector('input[name="sliderdangerfm"]').value = 0;
     };
+    const gare_yesno =
+        document.querySelector('input[name="gareyesno"]:checked').value;
+    if (gare_yesno === "0") {
+        gare_val = 1;
+    } else {
+        gare_val = -1;
+    };
 
     return {
         dangerfm: dangerfm_val,
@@ -174,7 +183,8 @@ function importanceselection() {
         village: village_val,
         ville: ville_val,
         ecole_prim: ecole_prim_val,
-        ecole_uni: ecole_uni_val
+        ecole_uni: ecole_uni_val,
+        gare: gare_val
     };
 };
 
@@ -280,7 +290,7 @@ function mergeBooleanLayers(r1, r2) {
 };
 
 async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, url9, url10,
-    url11, url12, url13, url14, url15, url16, url17, url18, url19, url20
+    url11, url12, url13, url14, url15, url16, url17, url18, url19, url20, url21 
     ) {
     const layer_Avalanche = await loadRaster(url1);
     const layer_Chute_P = await loadRaster(url2);
@@ -301,7 +311,8 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     const layer_ecole_prim = await loadRaster(url17);
     const layer_ecole_uni_1 = await loadRaster(url18);
     const layer_ecole_uni_5 = await loadRaster(url19);
-    const layer_ecole_uni_10 = await loadRaster(url20); // Social
+    const layer_ecole_uni_10 = await loadRaster(url20);
+    const layer_gare = await loadRaster(url21); // Social
 
     let layer_Lac, layer_Foret, layer_Etang, layer_Uni;
     // valeur attractives/repulsives
@@ -314,6 +325,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     const r_village = r_values.village;
     const r_prim = r_values.ecole_prim;
     const r_uni = r_values.ecole_uni;
+    const r_gare = r_values.gare;
 
     // Selection des couches en fonction des distances et attraction/repulsion
     const dist_files = distselection();
@@ -350,9 +362,10 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     const x_village = Number(x_values.village_x);
     const x_prim = Number(x_values.prim_x);
     const x_uni = Number(x_values.uni_x);
+    const x_gare = Number(x_values.gare_x);
 
-    const mean_x = (x_danger + x_lac + x_foret + x_etang + x_ville + x_village + x_prim + x_uni
-    ) / 8;
+    const mean_x = (x_danger + x_lac + x_foret + x_etang + x_ville + x_village + x_prim + x_uni + x_gare
+    ) / 9;
 
     const sum = new Float32Array(layer_Avalanche.data.length);
 
@@ -374,6 +387,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         let v12 = layer_village.data[i];
         let v13 = layer_ecole_prim.data[i];
         let v14 = layer_Uni.data[i];
+        let v15 = layer_gare.data[i];
 
         // Guard against NaN, Infinity, or sentinel large negative values
         if (!Number.isFinite(v1) || Math.abs(v1) > 1e30) v1 = 0;
@@ -390,6 +404,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         if (!Number.isFinite(v12) || Math.abs(v12) > 1e30) v12 = 0;
         if (!Number.isFinite(v13) || Math.abs(v13) > 1e30) v13 = 0;
         if (!Number.isFinite(v14) || Math.abs(v14) > 1e30) v14 = 0;
+        if (!Number.isFinite(v15) || Math.abs(v15) > 1e30) v15 = 0;
 
         // Some boolean rasters use 255 or other positive values for "true".
         v0 = v0 > 0.5 ? 1 : NaN;
@@ -407,6 +422,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         v12 = v12 > 0.5 ? 1 : NaN;
         v13 = v13 > 0.5 ? 1 : NaN;
         v14 = v14 > 0.5 ? 1 : NaN;
+        v15 = v15 > 0.5 ? 1 : NaN;
 
         // Start as no-data. Only set a numeric value if at least one
         // contributing raster cell is valid for this pixel.
@@ -428,6 +444,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         if (Number.isFinite(v12)) { acc += x_village * r_village * v12; hasValue = true; }
         if (Number.isFinite(v13)) { acc += x_prim * r_prim * v13; hasValue = true; }
         if (Number.isFinite(v14)) { acc += x_uni * r_uni * v14; hasValue = true; }
+        if (Number.isFinite(v15)) { acc += x_gare * r_gare * v15; hasValue = true; }
 
         sum[i] = hasValue ? acc : NaN;
     };
@@ -530,14 +547,15 @@ async function addSummedLayer(files_url = [
     'Data/Incitation/Social/ecole_prim_co_1km_WGS_boolean.tif',
     'Data/Incitation/Social/ecole_coll_uni_1km_WGS_boolean.tif',
     'Data/Incitation/Social/ecole_coll_uni_5km_WGS_boolean.tif', 
-    'Data/Incitation/Social/ecole_coll_uni_10km_WGS_boolean.tif' //21
+    'Data/Incitation/Social/ecole_coll_uni_10km_WGS_boolean.tif',
+    'Data/Incitation/Social/Gare_1km_WGS_boolean.tif' //20
 ]) {
     const result = await sumBooleanTiffs(
         files_url[0], files_url[1], files_url[2], files_url[3], files_url[4],
         files_url[5], files_url[6], files_url[7], files_url[8],
         files_url[9], files_url[10], files_url[11], files_url[12],
         files_url[13], files_url[14], files_url[15], files_url[16],
-        files_url[17], files_url[18], files_url[19]
+        files_url[17], files_url[18], files_url[19], files_url[20]
     );
     console.log(result.bbox);
 

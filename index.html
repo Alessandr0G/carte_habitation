@@ -120,6 +120,16 @@
                 </td>
             </tr>
             <tr>
+                <td class = "titresous2">La présence d'une gare à moins de 1km est:</td>
+            </tr>
+            <tr>
+                <td class = "yesnobutton">
+                    <input type="radio" id="Gare" name="gareyesno" value="0" checked onclick="importanceselection()"/> Attractive
+                    <input type="radio" id="Gare" name="gareyesno" value="1" onclick="importanceselection()"/> Repoussante
+                </td>
+            </tr>
+
+            <tr>
                 <td class="titresousclasse">Exclusion et Dangers</td>
             </tr>
             <tr>
@@ -168,22 +178,25 @@
             <td class="titresousclasse">Social</td>
         </tr>
         <tr>
-          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="slidervillage" onchange="importanceValue()">Importance du village</td>
+          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidervillage" onchange="importanceValue()">Importance du village</td>
         </tr>
         <tr>
-          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderville" onchange="importanceValue()">Importance du ville</td>
+          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderville" onchange="importanceValue()">Importance du ville</td>
         </tr>
         <tr>
-          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderecoleprim" onchange="importanceValue()">Importance des écoles primaires et secondaires</td>
+          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderecoleprim" onchange="importanceValue()">Importance des écoles primaires et secondaires</td>
         </tr>
         <tr>
-          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderecoleuni" onchange="importanceValue()">Importance des collèges et universités</td>
+          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderecoleuni" onchange="importanceValue()">Importance des collèges et universités</td>
+        </tr>
+        <tr>
+          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidergare" onchange="importanceValue()">Importance des gares</td>
         </tr>
         <tr>
             <td class="titresousclasse">Dangers naturels</td>
         </tr>
         <tr>
-          <td> <input type="range" min="0" max="4" step="1" value="2" id="importanceSlider" name="sliderdangerfm" onchange="importanceValue()">Importance des dangers naturels "moyens" et "faibles"</td>
+          <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderdangerfm" onchange="importanceValue()">Importance des dangers naturels "moyens" et "faibles"</td>
         </tr>
     </table>
     <div id="mapbutton">
