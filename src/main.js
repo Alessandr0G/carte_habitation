@@ -72,8 +72,20 @@ async function addLayer(
     }
 };
 
+const dangerSlider = document.querySelector('input[name="sliderdangerfm"]');
+const dangerRadio0 = document.querySelector('input[name="dangerfm"][value="0"]');
+const dangerRadio1 = document.querySelector('input[name="dangerfm"][value="1"]');
+
+dangerSlider.addEventListener('input', () => {
+    if (Number(dangerSlider.value) === 0) {
+        dangerRadio1.checked = true; // select the radio button
+    } else {
+        dangerRadio0.checked = true;
+    }
+});
+
 function importanceValue() {
-    const dangersfm_imp_val = document.querySelector('input[name="sliderdangerfm"]').value
+    const dangersfm_imp_val = document.querySelector('input[name="sliderdangerfm"]').value;
     const lac_imp_val = document.querySelector('input[name="sliderlac"]').value
     const foret_imp_val = document.querySelector('input[name="sliderforet"]').value
     const etang_imp_val = document.querySelector('input[name="slideretang"]').value
@@ -119,16 +131,16 @@ function importanceselection() {
     const village_yesno =
         document.querySelector('input[name="villageyesno"]:checked').value;
     if (village_yesno === "0") {
-        village_val = 1;
+        village_val = "moins";
     } else {
-        village_val = -1;
+        village_val = "plus";
     };
     const ville_yesno =
         document.querySelector('input[name="villeyesno"]:checked').value;
     if (ville_yesno === "0") {
-        ville_val = 1;
+        ville_val = "moins";
     } else {
-        ville_val = -1;
+        ville_val = "plus";
     };
     const ecole_prim_yesno =
         document.querySelector('input[name="ecoleprimyesno"]:checked').value;
@@ -148,8 +160,10 @@ function importanceselection() {
         document.querySelector('input[name="dangerfm"]:checked').value;
     if (dangerfm_yesno === "0") {
         dangerfm_val = -1;
+        document.querySelector('input[name="sliderdangerfm"]').value = 2;
     } else {
         dangerfm_val = 0;
+        document.querySelector('input[name="sliderdangerfm"]').value = 0;
     };
 
     return {
@@ -168,32 +182,32 @@ function distselection(){
   const dist_lac = document.querySelector("input[id=Lacdist]:checked").value;
   let dist_lac_files;
   if(dist_lac === "0"){
-    const dist_lac_files = "1km";
+    dist_lac_files = "1km";
   } else if(dist_lac === "1"){
-    const dist_lac_files = "5km";
+    dist_lac_files = "5km";
   } else if(dist_lac === "2"){
-    const dist_lac_files = "10km";
+    dist_lac_files = "10km";
   };
   const dist_foret = document.querySelector("input[id=Foretdist]:checked").value;
   let dist_foret_files;
   if(dist_foret === "0"){
-    const dist_foret_files = "1km";
+    dist_foret_files = "1km";
   } else if(dist_foret === "1"){
-    const dist_foret_files = "5km";
+    dist_foret_files = "5km";
   };
   const dist_etang = document.querySelector("input[id=Etangdist]:checked").value;
   let dist_etang_files;
   if(dist_etang === "0"){
-    const dist_etang_files = "1km";
+    dist_etang_files = "1km";
   } else if(dist_etang === "1"){
-    const dist_etang_files = "5km";
+    dist_etang_files = "5km";
   };
   const dist_uni = document.querySelector("input[id=Ecoleunidist]:checked").value;
   let dist_uni_files;
   if(dist_uni === "0"){
-    const dist_uni_files = "1km";
+    dist_uni_files = "1km";
   } else if(dist_uni === "1"){
-    const dist_uni_files = "10km";
+    dist_uni_files = "10km";
   };
   return {
     lac_files: dist_lac_files,
@@ -305,9 +319,6 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     const r_prim = r_values.ecole_prim;
     // const r_uni = r_values.ecole_uni;
 
-    const mean_r = (r_danger + r_lac + r_foret + r_etang + r_ville + r_village + r_prim // + r_uni
-    ) / 7;
-
     // Selection des couches en fonction des distances et attraction/repulsion
     const dist_files = distselection();
     if (dist_files.lac_files === "1km") {
@@ -332,12 +343,12 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     // } else {
     //     layer_Uni = mergeBooleanLayers(mergeBooleanLayers(layer_ecole_uni_1,layer_ecole_uni_5),layer_ecole_uni_10);
     // };
-    if (r_ville === 0) {
+    if (r_ville === "moins") {
         layer_ville = layer_ville_moins;
     } else {
         layer_ville = layer_ville_plus;
     };
-    if (r_village === 0) {
+    if (r_village === "moins") {
         layer_village = layer_village_moins;
     } else {
         layer_village = layer_village_plus;
@@ -354,11 +365,15 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     const x_prim = Number(x_values.prim_x);
     // const x_uni = Number(x_values.uni_x);
 
+    const mean_x = (x_danger + x_lac + x_foret + x_etang + x_ville + x_village + x_prim // + x_uni
+    ) / 7;
+
     const sum = new Float32Array(layer_Avalanche.data.length);
 
     // Normalize values: treat nodata / invalid extremes as 0, and
     // convert any truthy raster values to boolean 1 (threshold > 0.5).
     for (let i = 0; i < layer_Avalanche.data.length; i++) {
+        let v0 = layer_Frt_5.data[i];
         let v1 = layer_Avalanche.data[i];
         let v2 = layer_Chute_P.data[i];
         let v3 = layer_Crue.data[i];
@@ -391,37 +406,52 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         // if (!Number.isFinite(v14) || Math.abs(v14) > 1e30) v14 = 0;
 
         // Some boolean rasters use 255 or other positive values for "true".
-        v1 = v1 > 0.5 ? 1 : 0;
-        v2 = v2 > 0.5 ? 1 : 0;
-        v3 = v3 > 0.5 ? 1 : 0;
-        v4 = v4 > 0.5 ? 1 : 0;
-        v5 = v5 > 0.5 ? 1 : 0;
-        v6 = v6 > 0.5 ? 1 : 0;
-        v7 = v7 > 0.5 ? 1 : 0;
-        v8 = v8 > 0.5 ? 1 : 0;
-        v9 = v9 > 0.5 ? 1 : 0;
-        v10 = v10 > 0.5 ? 1 : 0;
-        v11 = v11 > 0.5 ? 1 : 0;
-        v12 = v12 > 0.5 ? 1 : 0;
-        v13 = v13 > 0.5 ? 1 : 0;
-        // v14 = v14 > 0.5 ? 1 : 0;
+        v0 = v0 > 0.5 ? 1 : NaN;
+        v1 = v1 > 0.5 ? 1 : NaN;
+        v2 = v2 > 0.5 ? 1 : NaN;
+        v3 = v3 > 0.5 ? 1 : NaN;
+        v4 = v4 > 0.5 ? 1 : NaN;
+        v5 = v5 > 0.5 ? 1 : NaN;
+        v6 = v6 > 0.5 ? 1 : NaN;
+        v7 = v7 > 0.5 ? 1 : NaN;
+        v8 = v8 > 0.5 ? 1 : NaN;
+        v9 = v9 > 0.5 ? 1 : NaN;
+        v10 = v10 > 0.5 ? 1 : NaN;
+        v11 = v11 > 0.5 ? 1 : NaN;
+        v12 = v12 > 0.5 ? 1 : NaN;
+        v13 = v13 > 0.5 ? 1 : NaN;
+        // v14 = v14 > 0.5 ? 1 : Nan;
 
-        const calculatedValue = x_danger * r_danger * v1 + x_danger * r_danger * v2 + x_danger * r_danger * v3 
-        + x_danger * r_danger * v4 + x_danger * r_danger * v5 + x_danger * r_danger * v6 
-        + x_danger * r_danger * v7 + x_lac * r_lac * v8 + x_foret * r_foret * v9 
-        + x_etang * r_etang * v10 + x_ville * r_ville * v11 + x_village * r_village * v12 
-        + x_prim * r_prim * v13; // + x_uni * r_uni * v14;
-        
-        // Only apply offset for pixels with at least some value (within region)
-        sum[i] = calculatedValue > 0 ? calculatedValue + 100 : 0;
-    }
+        // Start as no-data. Only set a numeric value if at least one
+        // contributing raster cell is valid for this pixel.
+        let acc = 0;
+        let hasValue = false;
+
+        if (Number.isFinite(v0)) { acc += 0 * 0 * v0; hasValue = true; } // neutral layer
+        if (Number.isFinite(v1)) { acc += x_danger * r_danger * v1; hasValue = true; }
+        if (Number.isFinite(v2)) { acc += x_danger * r_danger * v2; hasValue = true; }
+        if (Number.isFinite(v3)) { acc += x_danger * r_danger * v3; hasValue = true; }
+        if (Number.isFinite(v4)) { acc += x_danger * r_danger * v4; hasValue = true; }
+        if (Number.isFinite(v5)) { acc += x_danger * r_danger * v5; hasValue = true; }
+        if (Number.isFinite(v6)) { acc += x_danger * r_danger * v6; hasValue = true; }
+        if (Number.isFinite(v7)) { acc += x_danger * r_danger * v7; hasValue = true; }
+        if (Number.isFinite(v8)) { acc += x_lac * r_lac * v8; hasValue = true; }
+        if (Number.isFinite(v9)) { acc += x_foret * r_foret * v9; hasValue = true; }
+        if (Number.isFinite(v10)) { acc += x_etang * r_etang * v10; hasValue = true; }
+        // if (Number.isFinite(v11)) { acc += x_ville * r_ville * v11; hasValue = true; }
+        // if (Number.isFinite(v12)) { acc += x_village * r_village * v12; hasValue = true; }
+        if (Number.isFinite(v13)) { acc += x_prim * r_prim * v13; hasValue = true; }
+
+        sum[i] = hasValue ? acc : NaN;
+        // if (Number.isFinite(v14)) sum[i] += x_uni * r_uni * v14;  
+    };
     console.log('Sum data sample:', sum.slice(1500, 2600));
     return {
         data: sum,
         width: layer_Avalanche.width,
         height: layer_Avalanche.height,
         bbox: layer_Avalanche.bbox, 
-        mean_r: mean_r
+        mean_r: mean_x
     };
 };
 //TEst
@@ -451,42 +481,42 @@ function createRasterCanvas(result) {
         img.data[idx + 1] = 0; // G
         img.data[idx + 2] = 0; // B
 
-        if (v <= 0) {
+        if (!Number.isFinite(v)) {
             img.data[idx + 3] = 0;
-        }else if (v < (-10)*result.mean_r+100) {
+        }else if (v < (-10)*result.mean_r) {
             img.data[idx]     = 150;
             img.data[idx + 1] = 0;
             img.data[idx + 2] = 0; // dark red
             img.data[idx + 3] = 180;
-        } else if (v < (-6.25)*result.mean_r+100) {
+        } else if (v < (-5.25)*result.mean_r) {
             img.data[idx]     = 255;
             img.data[idx + 1] = 0;
             img.data[idx + 2] = 0; // red
             img.data[idx + 3] = 180;
-        } else if (v < (-2.5)*result.mean_r+100) {
+        } else if (v < (-1.5)*result.mean_r) {
             img.data[idx]     = 255;
             img.data[idx + 1] = 150;
             img.data[idx + 2] = 0; // orange
             img.data[idx + 3] = 180;
-        } else if (v  < (1.5)*result.mean_r+100) {
+        } else if (v  < (0.5)*result.mean_r) {
             img.data[idx]     = 255;
             img.data[idx + 1] = 255;
             img.data[idx + 2] = 0; // yellow
             img.data[idx + 3] = 180;
-        } else if (v < (5.5)*result.mean_r+100) {
+        } else if (v < (4.5)*result.mean_r) {
             img.data[idx]     = 0;
             img.data[idx + 1] = 255;
             img.data[idx + 2] = 0; // green
             img.data[idx + 3] = 180;
-        } else if (v < (9.5)*result.mean_r+100){
+        } else if (v < (8.5)*result.mean_r){
             img.data[idx]     = 0;
             img.data[idx + 1] = 255;
-            img.data[idx + 2] = 255; // green
+            img.data[idx + 2] = 255; // light blue
             img.data[idx + 3] = 180;
         } else {
             img.data[idx]     = 0;
             img.data[idx + 1] = 0;
-            img.data[idx + 2] = 255; // light blue
+            img.data[idx + 2] = 255; // blue
             img.data[idx + 3] = 180;
         };
     };
@@ -584,6 +614,10 @@ function frlayer() {
         });
         frLayer = [];
     }
+};
+
+function zoomresetMap() {
+    map.setView([46.72, 7.05], 10);
 };
 
 
