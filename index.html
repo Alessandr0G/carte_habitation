@@ -9,7 +9,7 @@
   </head>
 <body>
     <div id="selectiontitle">
-        <h2 class="titreclasse" data-i18n="titre"> </h2>
+        <h2 class="titreclasse" data-i18n="titre_left"> </h2>
         <div class="radio-button-container">
             <label class="radio-button">
                     <input type="radio" id="LanguageChange" name="languageChange" value="fr" checked onclick="languageCheck()"/>
@@ -22,13 +22,12 @@
         </div>
     </div>
     <div id="selection">
-        
         <div id="naturegauche" class="popup">
             <span class="popuptext" id="myPopup" data-i18n="popup_left_nature"> 
             </span>
             <table>
                 <tr>
-                    <td class="titresousclasse" data-i18n="s_titre_nature"></td>
+                    <td class="titresousclasse" data-i18n="titre_nature"></td>
                 </tr>
                 <tr>
                     <td class = "titresous1" data-i18n="titre_lac"></td>
@@ -53,18 +52,18 @@
                 <tr>
                     <td class="titresous3" colspan="3">
                         <div class="radio-container">
-                            <div class="radio-title">Distance d'intérêt:</div>
+                            <div class="radio-title" data-i18n="dist_int"></div>
                             <div class="radio-button-container">
                                 <label class="radio-button">
-                                    <input type="radio" id="Lacdist1" name="lacdist" value="0" checked onclick="distselection()"/>
+                                    <input type="radio" id="Lacdist" name="lacdist" value="0" checked onclick="distselection()"/>
                                     <span>&#60 1km</span>
                                 </label>
                                 <label class="radio-button">
-                                    <input type="radio" id="Lacdist2" name="lacdist" value="1" onclick="distselection()"/>
+                                    <input type="radio" id="Lacdist" name="lacdist" value="1" onclick="distselection()"/>
                                     <span>&#60 5km</span>
                                 </label>
                                 <label class="radio-button">
-                                    <input type="radio" id="Lacdist3" name="lacdist" value="2" onclick="distselection()"/>
+                                    <input type="radio" id="Lacdist" name="lacdist" value="2" onclick="distselection()"/>
                                     <span>&#60 10km</span>
                                 </label>
                             </div>
@@ -72,7 +71,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class = "titresous1">Forêt :</td>
+                    <td class = "titresous1" data-i18n="titre_foret"></td>
                 </tr>
                 <tr>
                     <td class = "titresous3" colspan="2">
@@ -80,11 +79,11 @@
                             <div class="radio-button-container">
                                 <label class="radio-button">
                                     <input type="radio" id="Foret" name="foretyesno" value="0" checked onclick="importanceselection()"/>
-                                    <span>Attirant</span>
+                                    <span data-i18n="attirant"></span>
                                 </label>
                                 <label class="radio-button">
                                     <input type="radio" id="Foret" name="foretyesno" value="1" onclick="importanceselection()"/>
-                                    <span>Repoussant</span>
+                                    <span data-i18n="repoussant"></span>
                                 </label>
                             </div>
                         </div>
@@ -93,14 +92,14 @@
                 <tr>
                     <td class = "titresous3" colspan="2">
                         <div class="radio-container">
-                            <div class="radio-title">Distance d'intérêt:</div>
+                            <div class="radio-title" data-i18n="dist_int"></div>
                             <div class="radio-button-container">
                                 <label class="radio-button">
-                                    <input type="radio" id="Foretdist1" name="foretdist" value="0" checked onclick="distselection()"/>
+                                    <input type="radio" id="Foretdist" name="foretdist" value="0" checked onclick="distselection()"/>
                                     <span>&#60 1km</span>
                                 </label>
                                 <label class="radio-button">
-                                    <input type="radio" id="Foretdist2" name="foretdist" value="1" onclick="distselection()"/>
+                                    <input type="radio" id="Foretdist" name="foretdist" value="1" onclick="distselection()"/>
                                     <span>&#60 5km</span>
                                 </label>
                             </div>
@@ -108,7 +107,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class = "titresous1">Étang :</td>
+                    <td class = "titresous1" data-i18n="titre_etang"></td>
                 </tr>
                 <tr>
                     <td class = "titresous3" colspan="2">
@@ -116,11 +115,11 @@
                             <div class="radio-button-container">
                                 <label class="radio-button">
                                     <input type="radio" id="Etang" name="etangyesno" value="0" checked onclick="importanceselection()"/>
-                                    <span>Attirant</span>
+                                    <span data-i18n="attirant"></span>
                                 </label>
                                 <label class="radio-button">
                                     <input type="radio" id="Etang" name="etangyesno" value="1" onclick="importanceselection()"/>
-                                    <span>Repoussant</span>
+                                    <span data-i18n="repoussant"></span>
                                 </label>
                             </div>
                         </div>
@@ -129,7 +128,7 @@
                 <tr>
                     <td class = "titresous3" colspan="2">
                         <div class="radio-container">
-                            <div class="radio-title">Distance d'intérêt:</div>
+                            <div class="radio-title" data-i18n="dist_int"></div>
                             <div class="radio-button-container">
                                 <label class="radio-button">
                                     <input type="radio" id="Etangdist" name="etangdist" value="0" checked onclick="distselection()"/>
@@ -146,15 +145,14 @@
             </table>
         </div>
         <div id="socialgauche" class="popup">
-            <span class="popuptext" id="myPopup"> SOCIAL Dans la sélection des paramètres ci-contre, 
-                village (>2'000 habitants) à moins de 2km est:
+            <span class="popuptext" id="myPopup" data-i18n="popup_left_social">
             </span>
             <table> 
                 <tr>
-                    <td class="titresousclasse">Social</td>
+                    <td class="titresousclasse" data-i18n="titre_social"></td>
                 </tr>
                 <tr>
-                    <td class = "titresous1">Grand village à &#60 2km :</td>
+                    <td class = "titresous1" data-i18n="titre_village"></td>
                 </tr>
                 <tr>
                     <td class = "titresous3" colspan="2">
@@ -162,18 +160,18 @@
                             <div class="radio-buttons-container">
                             <labels class="radio-button">
                                 <input type="radio" id="Village" name="villageyesno" value="0" checked onclick="importanceselection()"/>
-                                <span>Attractif</span>
+                                <span data-i18n="attirant"></span>
                             </labels>
                             <labels class="radio-button">
                                 <input type="radio" id="Village" name="villageyesno" value="1" onclick="importanceselection()"/>
-                                <span>Repulsif</span>
+                                <span data-i18n="repoussant"></span>
                             </labels>
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td class = "titresous1">Ville à &#60 2km :</td>
+                    <td class = "titresous1" data-i18n="titre_ville"></td>
                 </tr>
                 <tr>
                     <td class = "titresous3" colspan="2">
@@ -181,18 +179,18 @@
                             <div class="radio-buttons-container">
                             <labels class="radio-button">
                                 <input type="radio" id="Ville" name="villeyesno" value="0" checked onclick="importanceselection()"/>
-                                <span>Attractif</span>
+                                <span data-i18n="attirant"></span>
                             </labels>
                             <labels class="radio-button">
                                 <input type="radio" id="Ville" name="villeyesno" value="1" onclick="importanceselection()"/>
-                                <span>Repulsif</span>
+                                <span data-i18n="repoussant"></span>
                             </labels>
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td class = "titresous1">Gare à &#60 1km est:</td>
+                    <td class = "titresous1" data-i18n="titre_gare"></td>
                 </tr>
                 <tr>
                     <td class = "titresous3" colspan="2">
@@ -200,18 +198,18 @@
                             <div class="radio-button-container">
                                 <label class="radio-button">
                                     <input type="radio" name="gareyesno" value="0" checked onclick="importanceselection()" />
-                                    <span>Attractif</span>
+                                    <span data-i18n="attirant"></span>
                                 </label>
                                 <label class="radio-button">
                                     <input type="radio" name="gareyesno" value="1" onclick="importanceselection()" />
-                                    <span>Repoussant</span>
+                                    <span data-i18n="repoussant"></span>
                                 </label>
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td class = "titresous1">Ecole Primaire/CO à &#60 1km :</td>
+                    <td class = "titresous1" data-i18n="titre_prim"></td>
                 </tr>
                 <tr>
                     <td class = "titresous3" colspan="2">
@@ -219,18 +217,18 @@
                             <div class="radio-buttons-container">
                             <labels class="radio-button">
                                 <input type="radio" id="Ecoleprim" name="ecoleprimyesno" value="0" checked onclick="importanceselection()"/>
-                                <span>Attractif</span>
+                                <span data-i18n="attirant"></span>
                             </labels>
                             <labels class="radio-button">
                                 <input type="radio" id="Ecoleprim" name="ecoleprimyesno" value="1" onclick="importanceselection()"/>
-                                <span>Repulsif</span>
+                                <span data-i18n="repoussant"></span>
                             </labels>
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td class = "titresous1">Collège/Université à &#60 1km :</td>
+                    <td class = "titresous1" data-i18n="titre_uni"></td>
                 </tr>
                 <tr>
                     <td class = "titresous3" colspan="2">
@@ -238,11 +236,11 @@
                             <div class="radio-buttons-container">
                             <labels class="radio-button">
                                 <input type="radio" id="Ecoleuni" name="ecoleuniyesno" value="0" checked onclick="importanceselection()"/>
-                                <span>Attractif</span>
+                                <span data-i18n="attirant"></span>
                             </labels>
                             <labels class="radio-button">
                                 <input type="radio" id="Ecoleuni" name="ecoleuniyesno" value="1" onclick="importanceselection()"/>
-                                <span>Repulsif</span>
+                                <span data-i18n="repoussant"></span>
                             </labels>
                             </div>
                         </div>
@@ -253,7 +251,7 @@
                 <tr>
                     <td class = "titresous3", colspan="2">
                         <div class="radio-container">
-                            <div class="radio-title">Distance d'intérêt:</div>
+                            <div class="radio-title" data-i18n="dist_int"></div>
                             <div class="radio-button-container">
                                 <label class="radio-button">
                                     <input type="radio" id="Ecoleunidist" name="ecoleunidist" value="0" checked onclick="distselection()"/>
@@ -271,14 +269,14 @@
             </table>
         </div>
         <div id="dangergauche" class="popup">
-            <span class="popuptext" id="myPopup"> DANGERS Dans la sélection des paramètres ci-contre, 
+            <span class="popuptext" id="myPopup" data-i18n="popup_left_danger">  
             </span>
             <table>
                 <tr>
-                    <td class="titresousclasse">Exclusion et Dangers</td>
+                    <td class="titresousclasse" data-i18n="titre_exclusion"></td>
                 </tr>
                 <tr>
-                    <td class = "titresous3">Ajouter les dangers naturels "moyens" et "faible" comme caractéristique repulsive</td>
+                    <td class = "titresous3" data-i18n="titre_dangers"></td>
                 </tr>
                 <tr>
                     <td class="titresous3", colspan="2">
@@ -286,11 +284,11 @@
                             <div class="radio-button-container">
                                 <label class="radio-button">
                                     <input type="radio" id="Dangerfm" name="dangerfm" value="0" checked onclick="importanceselection()"/>
-                                    <span> Oui </span>
+                                    <span data-i18n="oui"></span>
                                 </label>
                                 <label class="radio-button">
                                     <input type="radio" id="Dangerfm" name="dangerfm" value="1" onclick="importanceselection()"/>
-                                    <span> Non </span>
+                                    <span data-i18n="non"></span>
                                 </label>
                             </div>
                         </div>
@@ -300,7 +298,7 @@
                     <td>
                         <label class="checkbox-button">
                             <input type="checkbox" id="exclusion" name="exclusion button" checked onclick="exclusionlayer()"/>
-                            <span>Afficher les Zones non appropriée à la construction</span>    
+                            <span data-i18n="btn_danger"></span>    
                         </label>
                     </td>
                 </tr>
@@ -308,7 +306,7 @@
                     <td>
                         <label class="checkbox-button">
                             <input type="checkbox" id="frlayer" name="canton button" checked onclick="frlayer()"/>
-                            <span>Afficher les limites du canton de Fribourg</span>
+                            <span data-i18n="btn_limites_fr"></span>
                         </label>
                     </td>
                 </tr>
@@ -324,53 +322,96 @@
             </span>
         <table>
             <tr>
-            <td class = "titreclasse"> Importance des caractéristiques (allant de nul à très importante)</td>
+            <td class = "titreclasse" data-i18n="titre_right"></td>
             </tr>
             <tr>
-                <td class="titresousclasse">Nature</td>
+                <td class="titresousclasse" data-i18n="titre_nature"></td>
             </tr>
             <tr>
-            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderlac" onchange="importanceValue()">Importance du lac</td>
+                <td>
+                    <div class="slider-row">
+                        <input class="slider" type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderlac" onchange="importanceValue()">
+                        <label class="slider-label" data-i18n="imp_lac"></label>
+                    </div>
+                </td>
             </tr>
             <tr>
-            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderforet" onchange="importanceValue()">Importance de la forêt</td>
+                <td>
+                    <div class="slider-row">
+                        <input class="slider" type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderforet" onchange="importanceValue()">
+                        <label class="slider-label" data-i18n="imp_foret"></label>
+                    </div>
+                </td>
             </tr>
             <tr>
-            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slideretang" onchange="importanceValue()">Importance de l'étang</td>
+                <td>
+                    <div class="slider-row">
+                        <input class="slider" type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slideretang" onchange="importanceValue()">
+                        <label class="slider-label" data-i18n="imp_etang"></label>
+                    </div>
+                </td>
             </tr>
             <tr>
-                <td class="titresousclasse">Social</td>
+                <td class="titresousclasse" data-i18n="titre_social"></td>
             </tr>
             <tr>
-            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidervillage" onchange="importanceValue()">Importance du village</td>
+                <td>
+                    <div class="slider-row">
+                        <input class="slider" type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidervillage" onchange="importanceValue()">
+                        <label class="slider-label" data-i18n="imp_village"></label>
+                    </div>
+                </td>
+            <tr>
+                <td>
+                    <div class="slider-row">
+                        <input class="slider" type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderville" onchange="importanceValue()">
+                        <label class="slider-label" data-i18n="imp_ville"></label>
+                    </div>
+                </td>
+            <tr>
+                <td>
+                    <div class="slider-row">
+                        <input class="slider" type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderecoleprim" onchange="importanceValue()">
+                        <label class="slider-label" data-i18n="imp_ecoleprim"></label>
+                    </div>
+                </td>
             </tr>
             <tr>
-            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderville" onchange="importanceValue()">Importance du ville</td>
+                <td>
+                    <div class="slider-row">
+                        <input class="slider" type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderecoleuni" onchange="importanceValue()">
+                        <label class="slider-label" data-i18n="imp_ecoleuni"></label>
+                    </div>
+                </td>
             </tr>
             <tr>
-            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderecoleprim" onchange="importanceValue()">Importance des écoles primaires et secondaires</td>
+                <td>
+                    <div class="slider-row">
+                        <input class="slider" type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidergare" onchange="importanceValue()">
+                        <label class="slider-label" data-i18n="imp_gare"></label>
+                    </div>
+                </td>
+            </tr>
             </tr>
             <tr>
-            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderecoleuni" onchange="importanceValue()">Importance des collèges et universités</td>
+                <td class="titresousclasse" data-i18n="titre_dangers"></td>
             </tr>
             <tr>
-            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidergare" onchange="importanceValue()">Importance des gares
-            </td>
-            </tr>
-            <tr>
-                <td class="titresousclasse">Dangers naturels</td>
-            </tr>
-            <tr>
-            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderdangerfm" onchange="importanceValue()">Importance des dangers naturels "moyens" et "faibles"</td>
+                <td>
+                    <div class="slider-row">
+                        <input class="slider" type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderdangerfm" onchange="importanceValue()">
+                        <label class="slider-label" data-i18n="imp_danger"></label>
+                    </div>
+                </td>
             </tr>
         </table>
         </div>
         <div id="maplegend">
             <div id="mapbuttons">
-                <button onclick="loadMap()">Charger la carte</button>
-                <button onclick="zoomresetMap()">Reset le zoom</button>
+                <button onclick="loadMap()" data-i18n="map_loader"></button>
+                <button onclick="zoomresetMap()" data-i18n="map_zoom"></button>
             </div>
-            <p class="titreclasse"> Légende </p>
+            <p class="titreclasse" data-i18n="titre_legend"></p>
             <div id="legend">
                 <div id="couleurlegend">
                     <div id="darkred"></div>
@@ -384,18 +425,16 @@
                     <div id="blackCont"></div>
                 </div>
                 <div id="explicationlegend" class="LegendText"> 
-                    <p> Mauvaise compatibilité </p>
-                    <p> Très faible compatibilité </p>
-                    <p> Faible compatibilité </p>
-                    <p> Moyenne compatibilité </p>
-                    <p> Bonne compatibilité </p>
-                    <p> Très bonne compatibilité </p>
-                    <p> Excellente compatibilité </p>
-                    <p> Innapropriées à la construction </p>
-                    <p> Contour du canton de Fribourg </p>
-
+                    <p data-i18n="compat_horr"></p>
+                    <p data-i18n="compat_t_nul"></p>
+                    <p data-i18n="compat_nul"></p>
+                    <p data-i18n="compat_mid"></p>
+                    <p data-i18n="compat_bien"></p>
+                    <p data-i18n="compat_t_bien"></p>
+                    <p data-i18n="compat_top"></p>
+                    <p data-i18n="non_construction"></p>
+                    <p data-i18n="ctn_frib"></p>
                 </div>
-                
             </div>
         </div>
     </div>

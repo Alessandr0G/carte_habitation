@@ -7,7 +7,6 @@ table {
   border-width: 2px;
   letter-spacing: 1px;
   width: 100%;
-
 }
 /* CHECKBOX-BUTTON */
 .checkbox-button {
@@ -67,7 +66,41 @@ table {
 .radio-button input[type="radio"]:focus + span {
   box-shadow: 0 0 0 3px rgba(43,138,62,0.15);
 }
-/* BUTTON STYLE */
+.radio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.radio-title {
+  font-weight: 700;
+  text-align: center;
+  padding-top: 4px;
+  font-size:16px;
+}
+.radio-button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+/* SLIDER */
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.slider-row.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.slider {
+  width: 130px;
+}
+.slider-label {
+  font-weight: 600;
+}
+/* BUTTON */
 button {
   display: inline-block;
   padding: 8px 12px;
@@ -259,6 +292,7 @@ width: 50%;
 }
 
 #explicationlegend{
+  position: relative;
 }
 /* CLASS */
 .popup {
@@ -309,25 +343,6 @@ width: 50%;
 .titresous3{
   font-size: 14px;
   font-weight: 600;
-}
-/* Distance container: title above, buttons below, centered */
-.radio-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-.radio-title {
-  font-weight: 700;
-  text-align: center;
-  padding-top: 4px;
-  font-size:16px;
-}
-.radio-button-container {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 .LegendText{
   font-size: 16px;
