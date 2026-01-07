@@ -158,3 +158,33 @@ async function testTiff(url) {
 };
 testTiff('Data/Incitation/Nature/Lac_10km_WGS_boolean.tif');
 
+
+
+
+
+
+
+            <div id="legend">
+                <div id="couleurlegend">
+                    <div id="darkred"></div>
+                    <div id="red"></div>
+                    <div id="orange"></div>
+                    <div id="yellow"></div>
+                    <div id="green"></div>
+                    <div id="lightblue"></div>
+                    <div id="blue"></div>
+                    <div id="black"></div>
+                    <div id="blackCont"></div>
+                </div>
+                <div id="explicationlegend" class="LegendText"> 
+                    <p data-i18n="compat_horr"></p>
+                    <p data-i18n="compat_t_nul"></p>
+                    <p data-i18n="compat_nul"></p>
+                    <p data-i18n="compat_mid"></p>
+                    <p data-i18n="compat_bien"></p>
+                    <p data-i18n="compat_t_bien"></p>
+                    <p data-i18n="compat_top"></p>
+                    <p data-i18n="non_construction"></p>
+                    <p data-i18n="ctn_frib"></p>
+                </div>
+            </div>

@@ -171,6 +171,23 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class = "titresous3" colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-title" data-i18n="dist_int"></div>
+                            <div class="radio-button-container">
+                                <label class="radio-button">
+                                    <input type="radio" id="Villagedist" name="villagedist" value="0" checked onclick="distselection()"/>
+                                    <span>&#60 1km</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="Villagedist" name="villagedist" value="1" onclick="distselection()"/>
+                                    <span>&#60 5km</span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
                     <td class = "titresous1" data-i18n="titre_ville"></td>
                 </tr>
                 <tr>
@@ -185,6 +202,23 @@
                                 <input type="radio" id="Ville" name="villeyesno" value="1" onclick="importanceselection()"/>
                                 <span data-i18n="repoussant"></span>
                             </labels>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "titresous3" colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-title" data-i18n="dist_int"></div>
+                            <div class="radio-button-container">
+                                <label class="radio-button">
+                                    <input type="radio" id="Villedist" name="villedist" value="0" checked onclick="distselection()"/>
+                                    <span>&#60 5km</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="Villedist" name="villedist" value="1" onclick="distselection()"/>
+                                    <span>&#60 10km</span>
+                                </label>
                             </div>
                         </div>
                     </td>
@@ -413,28 +447,80 @@
             </div>
             <p class="titreclasse" data-i18n="titre_legend"></p>
             <div id="legend">
-                <div id="couleurlegend">
-                    <div id="darkred"></div>
-                    <div id="red"></div>
-                    <div id="orange"></div>
-                    <div id="yellow"></div>
-                    <div id="green"></div>
-                    <div id="lightblue"></div>
-                    <div id="blue"></div>
-                    <div id="black"></div>
-                    <div id="blackCont"></div>
-                </div>
-                <div id="explicationlegend" class="LegendText"> 
-                    <p data-i18n="compat_horr"></p>
-                    <p data-i18n="compat_t_nul"></p>
-                    <p data-i18n="compat_nul"></p>
-                    <p data-i18n="compat_mid"></p>
-                    <p data-i18n="compat_bien"></p>
-                    <p data-i18n="compat_t_bien"></p>
-                    <p data-i18n="compat_top"></p>
-                    <p data-i18n="non_construction"></p>
-                    <p data-i18n="ctn_frib"></p>
-                </div>
+                <table style="line-height: 0;">
+                    <tr colspan="2">
+                        <td>
+                            <div id="darkred"></div>
+                        </td>
+                        <td class="LegendText">
+                            <p data-i18n="compat_horr"></p> 
+                        </td> 
+                    </tr>
+                    <tr colspan="2">
+                        <td>
+                            <div id="red"></div>
+                        </td>
+                        <td class="LegendText">
+                            <p data-i18n="compat_t_nul"></p> 
+                        </td> 
+                    </tr>
+                    <tr colspan="2">
+                        <td>
+                            <div id="orange"></div>
+                        </td>
+                        <td class="LegendText">
+                            <p data-i18n="compat_nul"></p> 
+                        </td> 
+                    </tr>
+                    <tr colspan="2">
+                        <td>
+                            <div id="yellow"></div>
+                        </td>
+                        <td class="LegendText">
+                            <p data-i18n="compat_mid"></p> 
+                        </td> 
+                    </tr>
+                    <tr colspan="2">
+                        <td>
+                            <div id="green"></div>
+                        </td>
+                        <td class="LegendText">
+                            <p data-i18n="compat_bien"></p> 
+                        </td> 
+                    </tr>
+                    <tr colspan="2">
+                        <td>
+                            <div id="lightblue"></div>
+                        </td>
+                        <td class="LegendText">
+                            <p data-i18n="compat_t_bien"></p> 
+                        </td> 
+                    </tr>
+                    <tr colspan="2">
+                        <td>
+                            <div id="blue"></div>
+                        </td>
+                        <td class="LegendText">
+                            <p data-i18n="compat_top"></p> 
+                        </td> 
+                    </tr>
+                    <tr colspan="2">
+                        <td>
+                            <div id="black"></div>
+                        </td>
+                        <td class="LegendText">
+                            <p data-i18n="non_construction"></p> 
+                        </td> 
+                    </tr>
+                    <tr colspan="2">
+                        <td>
+                            <div id="blackCont"></div>
+                        </td>
+                        <td class="LegendText">
+                            <p data-i18n="ctn_frib"></p> 
+                        </td> 
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

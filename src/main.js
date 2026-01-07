@@ -218,11 +218,27 @@ function distselection(){
   } else if(dist_uni === "1"){
     dist_uni_files = "10km";
   };
+  const dist_village = document.querySelector("input[id=Villagedist]:checked").value;
+  let dist_village_files;
+  if(dist_village === "0"){
+    dist_village_files = "1km";
+  } else if(dist_village === "1"){
+    dist_village_files = "5km";
+  };
+  const dist_ville = document.querySelector("input[id=Villedist]:checked").value;
+  let dist_ville_files;
+  if(dist_ville === "0"){
+    dist_ville_files = "5km";
+  } else if(dist_ville === "1"){
+    dist_ville_files = "10km";
+  };
   return {
     lac_files: dist_lac_files,
     foret_files: dist_foret_files,
     etang_files: dist_etang_files,
-    uni_files: dist_uni_files
+    uni_files: dist_uni_files,
+    village_files: dist_village_files,
+    ville_files: dist_ville_files
   };
 };
 
@@ -289,7 +305,7 @@ function mergeBooleanLayers(r1, r2) {
 };
 
 async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, url9, url10,
-    url11, url12, url13, url14, url15, url16, url17, url18, url19, url20, url21 
+    url11, url12, url13, url14, url15, url16, url17, url18, url19, url20, url21, url22, url23
     ) {
     const layer_Avalanche = await loadRaster(url1);
     const layer_Chute_P = await loadRaster(url2);
@@ -305,13 +321,15 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
     const layer_Lac_1 = await loadRaster(url12);
     const layer_Lac_5 = await loadRaster(url13);
     const layer_Lac_10 = await loadRaster(url14); // Nature
-    const layer_ville = await loadRaster(url15);
-    const layer_village = await loadRaster(url16);
-    const layer_ecole_prim = await loadRaster(url17);
-    const layer_ecole_uni_1 = await loadRaster(url18);
-    const layer_ecole_uni_5 = await loadRaster(url19);
-    const layer_ecole_uni_10 = await loadRaster(url20);
-    const layer_gare = await loadRaster(url21); // Social
+    const layer_ville_5 = await loadRaster(url15);
+    const layer_ville_10 = await loadRaster(url16);
+    const layer_village_1 = await loadRaster(url17);
+    const layer_village_5 = await loadRaster(url18);
+    const layer_ecole_prim = await loadRaster(url19);
+    const layer_ecole_uni_1 = await loadRaster(url20);
+    const layer_ecole_uni_5 = await loadRaster(url21);
+    const layer_ecole_uni_10 = await loadRaster(url22);
+    const layer_gare = await loadRaster(url23); // Social
 
     let layer_Lac, layer_Foret, layer_Etang, layer_Uni;
     // valeur attractives/repulsives
@@ -349,6 +367,16 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         layer_Uni = layer_ecole_uni_1;
     } else {
         layer_Uni = mergeBooleanLayers(mergeBooleanLayers(layer_ecole_uni_1,layer_ecole_uni_5),layer_ecole_uni_10);
+    };
+    if(dist_files.village_files === "1km") {
+        layer_village = layer_village_1;
+    } else {
+        layer_village = layer_village_5;
+    };
+    if(dist_files.ville_files === "5km") {
+        layer_ville = layer_ville_5;
+    } else {
+        layer_ville = layer_ville_10;
     };
 
     // valeur d'importance du critère
@@ -541,20 +569,23 @@ async function addSummedLayer(files_url = [
     'Data/Incitation/Nature/Lac_1km_WGS_boolean_v2.tif',
     'Data/Incitation/Nature/Lac_5km_WGS_boolean_v2.tif',
     'Data/Incitation/Nature/Lac_10km_WGS_boolean.tif', //13
-    'Data/Incitation/Social/ville_moins_2km_WGS_boolean.tif',
-    'Data/Incitation/Social/village_moins_2km_WGS_boolean.tif',
+    'Data/Incitation/Social/ville_5km_WGS_boolean.tif',
+    'Data/Incitation/Social/ville_10km_WGS_boolean.tif',
+    'Data/Incitation/Social/village_1km_WGS_boolean.tif',
+    'Data/Incitation/Social/village_5km_WGS_boolean.tif',
     'Data/Incitation/Social/ecole_prim_co_1km_WGS_boolean.tif',
     'Data/Incitation/Social/ecole_coll_uni_1km_WGS_boolean.tif',
     'Data/Incitation/Social/ecole_coll_uni_5km_WGS_boolean.tif', 
     'Data/Incitation/Social/ecole_coll_uni_10km_WGS_boolean.tif',
-    'Data/Incitation/Social/Gare_1km_WGS_boolean.tif' //20
+    'Data/Incitation/Social/Gare_1km_WGS_boolean.tif' //22
 ]) {
     const result = await sumBooleanTiffs(
         files_url[0], files_url[1], files_url[2], files_url[3], files_url[4],
         files_url[5], files_url[6], files_url[7], files_url[8],
         files_url[9], files_url[10], files_url[11], files_url[12],
         files_url[13], files_url[14], files_url[15], files_url[16],
-        files_url[17], files_url[18], files_url[19], files_url[20]
+        files_url[17], files_url[18], files_url[19], files_url[20],
+        files_url[21], files_url[22]
     );
     console.log(result.bbox);
 
