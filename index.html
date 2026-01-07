@@ -9,19 +9,29 @@
   </head>
 <body>
     <div id="selectiontitle">
-        <h2> Sélection des paramètres </h2>
+        <h2 class="titreclasse" data-i18n="titre"> </h2>
+        <div class="radio-button-container">
+            <label class="radio-button">
+                    <input type="radio" id="LanguageChange" name="languageChange" value="fr" checked onclick="languageCheck()"/>
+                    <span>FR</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" id="LanguageChange" name="languageChange" value="de" onclick="languageCheck()"/>
+                    <span>DE</span>
+            </label>
+        </div>
     </div>
     <div id="selection">
         
         <div id="naturegauche" class="popup">
-            <span class="popuptext" id="myPopup"> NATURE Dans la sélection des paramètres ci-contre, 
+            <span class="popuptext" id="myPopup" data-i18n="popup_left_nature"> 
             </span>
             <table>
                 <tr>
-                    <td class="titresousclasse">Nature</td>
+                    <td class="titresousclasse" data-i18n="s_titre_nature"></td>
                 </tr>
                 <tr>
-                    <td class = "titresous1">Lac :</td>
+                    <td class = "titresous1" data-i18n="titre_lac"></td>
                 </tr>
                 <tr>
                     <td class="titresous3" colspan="2">
@@ -29,11 +39,11 @@
                                 <div class="radio-button-container">
                                 <label class="radio-button">
                                     <input type="radio" id="Lac" name="lacyesno" value="0" checked onclick="importanceselection()"/>
-                                    <span>Attirant</span>
+                                    <span data-i18n="attirant"></span>
                                 </label>
                                 <label class="radio-button">
                                     <input type="radio" id="Lac" name="lacyesno" value="1" onclick="importanceselection()"/>
-                                    <span>Repoussant</span>
+                                    <span data-i18n="repoussant"></span>
                                 </label>
                                 </div>
                             </div>
@@ -310,11 +320,7 @@
     </div>
     <div id="rightpart">
         <div id="rangevalue" class="popup">
-            <span class="popuptext" id="myPopup">La valeur d'importance est une la valeur que vous attribuer à la présence d'une certaine caractéristique.
-                Par exemple si le désagrément sonore créé par une gare à proximité est une caraectirique capitale dans la sélection de votre logement,
-                vous pouvez lui assigner la valeur maximal (après avoir choisi "repoussant" pour la gare dans la sélection des paramètres). Au contraire,
-                si cela n'a aucune importance pour vous, qu'il y en ait une ou non, vous pouvez lui assignez la valeur minimal.
-                La valeur minimal étant à gauche et la valeur maximale à droite de la barre. 
+            <span class="popuptext" id="myPopup" data-i18n="popup_right"></span>
             </span>
         <table>
             <tr>
@@ -361,13 +367,10 @@
         </div>
         <div id="maplegend">
             <div id="mapbuttons">
-                <labels class="labelbutton"> Actions :</
-
-                </labels>
                 <button onclick="loadMap()">Charger la carte</button>
                 <button onclick="zoomresetMap()">Reset le zoom</button>
             </div>
-            <p class="titreclasse"> Qualité de la zone </p>
+            <p class="titreclasse"> Légende </p>
             <div id="legend">
                 <div id="couleurlegend">
                     <div id="darkred"></div>
@@ -379,17 +382,15 @@
                     <div id="blue"></div>
                     <div id="black"></div>
                     <div id="blackCont"></div>
-
-
                 </div>
                 <div id="explicationlegend" class="LegendText"> 
-                    <p> Excellente compatibilité </p>
-                    <p> Très bonne compatibilité </p>
-                    <p> Bonne compatibilité </p>
-                    <p> Moyenne compatibilité </p>
-                    <p> Faible compatibilité </p>
-                    <p> Très faible compatibilité </p>
                     <p> Mauvaise compatibilité </p>
+                    <p> Très faible compatibilité </p>
+                    <p> Faible compatibilité </p>
+                    <p> Moyenne compatibilité </p>
+                    <p> Bonne compatibilité </p>
+                    <p> Très bonne compatibilité </p>
+                    <p> Excellente compatibilité </p>
                     <p> Innapropriées à la construction </p>
                     <p> Contour du canton de Fribourg </p>
 
@@ -408,4 +409,5 @@
     <script src="https://cdn.jsdelivr.net/npm/leaflet-geotiff-2/dist/leaflet-geotiff-plotty.js"></script>
 
     <script src="src/main.js"></script>
+    <script src="src/main_text.js"></script>
 </body>
