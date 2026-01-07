@@ -8,154 +8,314 @@
     <link rel="stylesheet" href="src/style.css">
   </head>
 <body>
+    <div id="selectiontitle">
+        <h2> Sélection des paramètres </h2>
+    </div>
     <div id="selection">
-        <p class="titreclasse">Selection des paramètres</p>
-        <table>
-            <tr>
-                <td class="titresousclasse">Nature</td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La proximité d'un lac est:</td>
-            </tr>
-            <tr>
-                <td class = "yesnobutton">
-                    <input type="radio" id="Lac" name="lacyesno" value="0" checked onclick="importanceselection()"/> Attractive
-                    <input type="radio" id="Lac" name="lacyesno" value="1" onclick="importanceselection()"/> Repoussante
-                </td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La distance de sensibilité au lac:</td>
-            </tr>
-            <tr>
-                <td class = "distanceradio">
-                  <input type="radio" id="Lacdist" name="lacdist" value="0" checked onclick="distselection()"/> moins de 1km
-                  <input type="radio" id="Lacdist" name="lacdist" value="1" onclick="distselection()"/> moins de 5km
-                  <input type="radio" id="Lacdist" name="lacdist" value="2" onclick="distselection()"/> moins de 10km
-                </td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La présence d'une forêt est:</td>
-            </tr>
-            <tr>
-                <td class = "yesnobutton">
-                    <input type="radio" id="Foret" name="foretyesno" value="0" checked onclick="importanceselection()"/> Attractive
-                    <input type="radio" id="Foret" name="foretyesno" value="1" onclick="importanceselection()"/> Repoussante
-                </td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La distance de sensibilité à la forêt:</td>
-            </tr>
-            <tr>
-                <td class = "distanceradio">
-                  <input type="radio" id="Foretdist" name="foretdist" value="0" checked onclick="distselection()"/> moins de 1km
-                  <input type="radio" id="Foretdist" name="foretdist" value="1" onclick="distselection()"/> moins de 5km
-                </td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La présence d'un étang est:</td>
-            </tr>
-            <tr>
-                <td class = "yesnobutton">
-                    <input type="radio" id="Etang" name="etangyesno" value="0" checked onclick="importanceselection()"/> Attractive
-                    <input type="radio" id="Etang" name="etangyesno" value="1" onclick="importanceselection()"/> Repoussante
-                </td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La distance de sensibilité à l'étang:</td>
-            </tr>
-            <tr>
-                <td class = "distanceradio">
-                  <input type="radio" id="Etangdist" name="etangdist" value="0" checked onclick="distselection()"/> moins de 1km
-                  <input type="radio" id="Etangdist" name="etangdist" value="1"onclick="distselection()"/> moins de 5km
-                </td>
-            </tr>
-            <tr>
-                <td class="titresousclasse">Social</td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La présence d'un village (>2'000 habitants) à moins de 2km est:</td>
-            </tr>
-            <tr>
-                <td class = "yesnobutton">
-                    <input type="radio" id="Village" name="villageyesno" value="0" checked onclick="importanceselection()"/> Attractive
-                    <input type="radio" id="Village" name="villageyesno" value="1" onclick="importanceselection()"/> Repoussante
-                </td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La présence d'une ville (>10'000 habitants) à moins de 2km est:</td>
-            </tr>
-            <tr>
-                <td class = "yesnobutton">
-                    <input type="radio" id="Ville" name="villeyesno" value="0" checked onclick="importanceselection()"/> Attractive
-                    <input type="radio" id="Ville" name="villeyesno" value="1" onclick="importanceselection()"/> Repoussante
-                </td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La présence d'une école primaire ou d'une école secondaire à moins de 1km est:</td>
-            </tr>
-            <tr>
-                <td class = "yesnobutton">
-                    <input type="radio" id="Ecoleprim" name="ecoleprimyesno" value="0" checked onclick="importanceselection()"/> Attractive
-                    <input type="radio" id="Ecoleprim" name="ecoleprimyesno" value="1" onclick="importanceselection()"/> Repoussante
-                </td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La présence d'un collège ou d'une université à moins de 1km est:</td>
-            </tr>
-            <tr>
-                <td class = "yesnobutton">
-                    <input type="radio" id="Ecoleuni" name="ecoleuniyesno" value="0" checked onclick="importanceselection()"/> Attractive
-                    <input type="radio" id="Ecoleuni" name="ecoleuniyesno" value="1" onclick="importanceselection()"/> Repoussante
-                </td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La distance de sensibilité au collège et à l'université:</td>
-            </tr>
-            <tr>
-                <td class = "distanceradio">
-                  <input type="radio" id="Ecoleunidist" name="ecoleunidist" value="0" checked onclick="distselection()"/> moins de 1km
-                  <input type="radio" id="Ecoleunidist" name="ecoleunidist" value="1"onclick="distselection()"/> moins de 10km
-                </td>
-            </tr>
-            <tr>
-                <td class = "titresous2">La présence d'une gare à moins de 1km est:</td>
-            </tr>
-            <tr>
-                <td class = "yesnobutton">
-                    <input type="radio" id="Gare" name="gareyesno" value="0" checked onclick="importanceselection()"/> Attractive
-                    <input type="radio" id="Gare" name="gareyesno" value="1" onclick="importanceselection()"/> Repoussante
-                </td>
-            </tr>
-
-            <tr>
-                <td class="titresousclasse">Exclusion et Dangers</td>
-            </tr>
-            <tr>
-                <td class = "titresous2">Ajouter les dangers naturels "moyens" et "faible" comme caractéristique repoussante</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="radio" id="Dangerfm" name="dangerfm" value="0" checked onclick="importanceselection()"/> Oui
-                    <input type="radio" id="Dangerfm" name="dangerfm" value="1" onclick="importanceselection()"/> Non
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" id="exclusion" name="exclusion button" checked onclick="exclusionlayer()"/> Afficher les Zones non appropriée à la construction
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" id="frlayer" name="canton button" checked onclick="frlayer()"/> Afficher les limites du canton de Fribourg
-                </td>
-            </tr>
-        </table>
+        
+        <div id="naturegauche" class="popup">
+            <span class="popuptext" id="myPopup"> NATURE Dans la sélection des paramètres ci-contre, 
+            </span>
+            <table>
+                <tr>
+                    <td class="titresousclasse">Nature</td>
+                </tr>
+                <tr>
+                    <td class = "titresous1">Lac :</td>
+                </tr>
+                <tr>
+                    <td class="titresous3" colspan="2">
+                            <div class="radio-container">
+                                <div class="radio-button-container">
+                                <label class="radio-button">
+                                    <input type="radio" id="Lac" name="lacyesno" value="0" checked onclick="importanceselection()"/>
+                                    <span>Attirant</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="Lac" name="lacyesno" value="1" onclick="importanceselection()"/>
+                                    <span>Repoussant</span>
+                                </label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titresous3" colspan="3">
+                        <div class="radio-container">
+                            <div class="radio-title">Distance d'intérêt:</div>
+                            <div class="radio-button-container">
+                                <label class="radio-button">
+                                    <input type="radio" id="Lacdist1" name="lacdist" value="0" checked onclick="distselection()"/>
+                                    <span>&#60 1km</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="Lacdist2" name="lacdist" value="1" onclick="distselection()"/>
+                                    <span>&#60 5km</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="Lacdist3" name="lacdist" value="2" onclick="distselection()"/>
+                                    <span>&#60 10km</span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "titresous1">Forêt :</td>
+                </tr>
+                <tr>
+                    <td class = "titresous3" colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-button-container">
+                                <label class="radio-button">
+                                    <input type="radio" id="Foret" name="foretyesno" value="0" checked onclick="importanceselection()"/>
+                                    <span>Attirant</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="Foret" name="foretyesno" value="1" onclick="importanceselection()"/>
+                                    <span>Repoussant</span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "titresous3" colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-title">Distance d'intérêt:</div>
+                            <div class="radio-button-container">
+                                <label class="radio-button">
+                                    <input type="radio" id="Foretdist1" name="foretdist" value="0" checked onclick="distselection()"/>
+                                    <span>&#60 1km</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="Foretdist2" name="foretdist" value="1" onclick="distselection()"/>
+                                    <span>&#60 5km</span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "titresous1">Étang :</td>
+                </tr>
+                <tr>
+                    <td class = "titresous3" colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-button-container">
+                                <label class="radio-button">
+                                    <input type="radio" id="Etang" name="etangyesno" value="0" checked onclick="importanceselection()"/>
+                                    <span>Attirant</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="Etang" name="etangyesno" value="1" onclick="importanceselection()"/>
+                                    <span>Repoussant</span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "titresous3" colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-title">Distance d'intérêt:</div>
+                            <div class="radio-button-container">
+                                <label class="radio-button">
+                                    <input type="radio" id="Etangdist" name="etangdist" value="0" checked onclick="distselection()"/>
+                                    <span>&#60 1km</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="Etangdist" name="etangdist" value="1" onclick="distselection()"/>
+                                    <span>&#60 5km</span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="socialgauche" class="popup">
+            <span class="popuptext" id="myPopup"> SOCIAL Dans la sélection des paramètres ci-contre, 
+                village (>2'000 habitants) à moins de 2km est:
+            </span>
+            <table> 
+                <tr>
+                    <td class="titresousclasse">Social</td>
+                </tr>
+                <tr>
+                    <td class = "titresous1">Grand village à &#60 2km :</td>
+                </tr>
+                <tr>
+                    <td class = "titresous3" colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-buttons-container">
+                            <labels class="radio-button">
+                                <input type="radio" id="Village" name="villageyesno" value="0" checked onclick="importanceselection()"/>
+                                <span>Attractif</span>
+                            </labels>
+                            <labels class="radio-button">
+                                <input type="radio" id="Village" name="villageyesno" value="1" onclick="importanceselection()"/>
+                                <span>Repulsif</span>
+                            </labels>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "titresous1">Ville à &#60 2km :</td>
+                </tr>
+                <tr>
+                    <td class = "titresous3" colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-buttons-container">
+                            <labels class="radio-button">
+                                <input type="radio" id="Ville" name="villeyesno" value="0" checked onclick="importanceselection()"/>
+                                <span>Attractif</span>
+                            </labels>
+                            <labels class="radio-button">
+                                <input type="radio" id="Ville" name="villeyesno" value="1" onclick="importanceselection()"/>
+                                <span>Repulsif</span>
+                            </labels>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "titresous1">Gare à &#60 1km est:</td>
+                </tr>
+                <tr>
+                    <td class = "titresous3" colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-button-container">
+                                <label class="radio-button">
+                                    <input type="radio" name="gareyesno" value="0" checked onclick="importanceselection()" />
+                                    <span>Attractif</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" name="gareyesno" value="1" onclick="importanceselection()" />
+                                    <span>Repoussant</span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "titresous1">Ecole Primaire/CO à &#60 1km :</td>
+                </tr>
+                <tr>
+                    <td class = "titresous3" colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-buttons-container">
+                            <labels class="radio-button">
+                                <input type="radio" id="Ecoleprim" name="ecoleprimyesno" value="0" checked onclick="importanceselection()"/>
+                                <span>Attractif</span>
+                            </labels>
+                            <labels class="radio-button">
+                                <input type="radio" id="Ecoleprim" name="ecoleprimyesno" value="1" onclick="importanceselection()"/>
+                                <span>Repulsif</span>
+                            </labels>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "titresous1">Collège/Université à &#60 1km :</td>
+                </tr>
+                <tr>
+                    <td class = "titresous3" colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-buttons-container">
+                            <labels class="radio-button">
+                                <input type="radio" id="Ecoleuni" name="ecoleuniyesno" value="0" checked onclick="importanceselection()"/>
+                                <span>Attractif</span>
+                            </labels>
+                            <labels class="radio-button">
+                                <input type="radio" id="Ecoleuni" name="ecoleuniyesno" value="1" onclick="importanceselection()"/>
+                                <span>Repulsif</span>
+                            </labels>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr> 
+                </tr>
+                <tr>
+                    <td class = "titresous3", colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-title">Distance d'intérêt:</div>
+                            <div class="radio-button-container">
+                                <label class="radio-button">
+                                    <input type="radio" id="Ecoleunidist" name="ecoleunidist" value="0" checked onclick="distselection()"/>
+                                    <span>&#60 1km</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="Ecoleunidist" name="ecoleunidist" value="1" onclick="distselection()"/>
+                                    <span>&#60 10km</span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+            </table>
+        </div>
+        <div id="dangergauche" class="popup">
+            <span class="popuptext" id="myPopup"> DANGERS Dans la sélection des paramètres ci-contre, 
+            </span>
+            <table>
+                <tr>
+                    <td class="titresousclasse">Exclusion et Dangers</td>
+                </tr>
+                <tr>
+                    <td class = "titresous3">Ajouter les dangers naturels "moyens" et "faible" comme caractéristique repulsive</td>
+                </tr>
+                <tr>
+                    <td class="titresous3", colspan="2">
+                        <div class="radio-container">
+                            <div class="radio-button-container">
+                                <label class="radio-button">
+                                    <input type="radio" id="Dangerfm" name="dangerfm" value="0" checked onclick="importanceselection()"/>
+                                    <span> Oui </span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="Dangerfm" name="dangerfm" value="1" onclick="importanceselection()"/>
+                                    <span> Non </span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="checkbox-button">
+                            <input type="checkbox" id="exclusion" name="exclusion button" checked onclick="exclusionlayer()"/>
+                            <span>Afficher les Zones non appropriée à la construction</span>    
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="checkbox-button">
+                            <input type="checkbox" id="frlayer" name="canton button" checked onclick="frlayer()"/>
+                            <span>Afficher les limites du canton de Fribourg</span>
+                        </label>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <div id="map">
     </div>
     <div id="rightpart">
-        <div id="rangevalue">
+        <div id="rangevalue" class="popup">
+            <span class="popuptext" id="myPopup">La valeur d'importance est une la valeur que vous attribuer à la présence d'une certaine caractéristique.
+                Par exemple si le désagrément sonore créé par une gare à proximité est une caraectirique capitale dans la sélection de votre logement,
+                vous pouvez lui assigner la valeur maximal (après avoir choisi "repoussant" pour la gare dans la sélection des paramètres). Au contraire,
+                si cela n'a aucune importance pour vous, qu'il y en ait une ou non, vous pouvez lui assignez la valeur minimal.
+                La valeur minimal étant à gauche et la valeur maximale à droite de la barre. 
+            </span>
         <table>
             <tr>
             <td class = "titreclasse"> Importance des caractéristiques (allant de nul à très importante)</td>
@@ -188,7 +348,8 @@
             <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderecoleuni" onchange="importanceValue()">Importance des collèges et universités</td>
             </tr>
             <tr>
-            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidergare" onchange="importanceValue()">Importance des gares</td>
+            <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="slidergare" onchange="importanceValue()">Importance des gares
+            </td>
             </tr>
             <tr>
                 <td class="titresousclasse">Dangers naturels</td>
@@ -197,8 +358,12 @@
             <td> <input type="range" min="0" max="5" step="1" value="2" id="importanceSlider" name="sliderdangerfm" onchange="importanceValue()">Importance des dangers naturels "moyens" et "faibles"</td>
             </tr>
         </table>
+        </div>
         <div id="maplegend">
             <div id="mapbuttons">
+                <labels class="labelbutton"> Actions :</
+
+                </labels>
                 <button onclick="loadMap()">Charger la carte</button>
                 <button onclick="zoomresetMap()">Reset le zoom</button>
             </div>
