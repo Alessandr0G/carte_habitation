@@ -5,7 +5,7 @@ let frLayer = [];
 let currentLayer = [];
 
 function MapCreation() {
-    map = L.map('map').setView([46.72, 7.05], 10);
+    map = L.map('map').setView([46.75, 7.08], 10);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
@@ -664,11 +664,11 @@ function frlayer() {
 };
 
 function zoomresetMap() {
-    map.setView([46.72, 7.05], 10);
+    map.setView([46.75, 7.08], 10);
 };
 
 function InfoIn(){
-    document.getElementById('informations').style.display = "inline";
+    document.getElementById('informations').style.display = "flex";
 };
 
 function InfoOut(){

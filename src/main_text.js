@@ -95,8 +95,20 @@ const LANG = {
         "Aller vers la page",
     info_button_in:
         "Ouvrir la page d'information",
+    info_titre:
+        "Quelques informations concernant ce site:",
     info_text:
-        "Sur cette page vous trouverez ...",
+        `Sur cette page vous trouverez différents paramètres qui peuvent vous aidez à la décision 
+        d'un lieu de vie dans le canton de Fribourg.<br><br>
+        Pour vous aidez dans cette mission, vous disposerez à droite 
+        de paramètres; naturels, infrstructurels et de dangers (plus d'information 
+        <a href="https://www.fr.ch/sites/default/files/contens/sff/_www/files/pdf46/Cartographie_dangers_naturels_instabilites_Rapport_explicatif_2012_FR.pdf" target="_blank" rel="noopener noreferrer">"ici"</a>).
+        En plus de cela, vous pourrez sélectionner les distances d'intérêt pour informer quant à la distance maximal d'un paramètre pour qu'il ait une influence sur votre choix.<br>
+        Et à gauche, vous trouverez des plages d'importance qui permettent d'influer sur la valeur que vous donnez à certaines caractérisiques.
+        Il y a 6 valeurs différentes, qui vont de 0 tout à gauche à 5 tout à droite, pour chacun des curseurs. Par exemple, il est possible de mettre le curseur 
+        tout à gauche pour des paramètres aux quels vous êtes indiférents. Cela permettra de ne pas les comptabiliser dans le calcul final.<br><br>
+        
+        Quand vous auret réglé tous les paramètres à votre guise, cliquez sur "Charger la map", attendez 5 à 10 secondes et le résultat apparaîtra.`,
     popup_left_nature:
         `Les paramètres naturels s'intéressent au terrain et à ces caractéristiques.
         
@@ -124,11 +136,11 @@ const LANG = {
         qui permet de renseigner sur quelle échelle de distance le paramètre vous impacte par son existence.`,
     popup_left_danger:
         `Dans cette dernière catégorie, il est possible de gérer les paramètres liés aux zones de dangers naturels et les limites du canton de Fribourg.<br><br>
-        En premier, les zones de danger, qui sont considérés "faibles" ou "résiduels", sont des zones que le 
-        <a href="https://www.fr.ch/sites/default/files/contens/sff/_www/files/pdf46/Cartographie_dangers_naturels_instabilites_Rapport_explicatif_2012_FR.pdf" target="_blank" rel="noopener noreferrer"> 
-        canton de Fribourg </a>. considère avec "un danger faible pour les personnes" ou "avec une très faible probabilité d'occurence"<br><br>
+        En premier, les zones de danger, qui sont considérés "faibles" ou "résiduels", sont des zones dans lesquelles:
+        "un danger faible pour les personnes" ou a "une très faible probabilité d'occurence".<br><br>
         
-        Les zones non appropriée à la construction regroupe les zones de danger catégorisées comme moyen et fort en plus des lacs pour une meilleure lisibilité.<br><br>`,
+        Les zones non appropriée à la construction regroupe les zones de danger catégorisées comme moyen et fort (voir dans la page d'information pour en savoir plus) 
+        en plus des lacs pour une meilleure lisibilité.<br><br>`,
     popup_right: `
         La valeur d'importance est la valeur que vous attribuez à la présence
         d'une certaine caractéristique.<br><br>
@@ -237,6 +249,8 @@ const LANG = {
         "Aller vers la page DE",
     info_button_in:
         "Ouvrir la page d'information DE",
+    info_titre:
+        "Quelques informations concernant ce site: DE",
     info_text:
         "Sur cette page vous trouverez ... DE",
     popup_left_nature:
