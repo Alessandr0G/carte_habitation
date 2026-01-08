@@ -675,4 +675,25 @@ function InfoOut(){
     document.getElementById('informations').style.display = "none";
 }
 
+// Popup hover event listeners
+const popupElements = document.querySelectorAll('.popup');
+popupElements.forEach(popup => {
+    popup.addEventListener('mouseenter', function() {
+        const popupText = this.querySelector('.popuptext');
+        if (popupText) {
+            popupText.style.visibility = 'visible';
+        }
+    });
+   
+    popup.addEventListener('mouseleave', function() {
+        const popupText = this.querySelector('.popuptext');
+        if (popupText) {
+            popupText.style.visibility = 'hidden';
+        }
+    });
+});
+
+console.log("Main JS loaded");
+
+
 console.log("Main JS loaded");

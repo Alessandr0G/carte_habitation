@@ -171,14 +171,14 @@ button:focus {
   font-size:14px;
 }
 #map{
-position:absolute;
-top: 0%;
-left: calc(25%);
-background-color: #e1e8e9;
-border: 5px solid rgb(0, 0, 0);
-height: calc(100% - 10px);
-width: calc(50% - 10px);
-z-index: 2;
+  position:absolute;
+  top: 0%;
+  left: calc(25%);
+  background-color: #e1e8e9;
+  border: 5px solid rgb(0, 0, 0);
+  height: calc(100% - 10px);
+  width: calc(50% - 10px);
+  z-index: 1;
 }
 #leftpart{
   position:absolute;
@@ -189,7 +189,7 @@ z-index: 2;
   width: calc(25% - 2px);
   height: calc(100% - 4px);
   border: 2px solid rgb(0, 0, 0);
-  z-index: 1;
+  z-index: 10;
 }
 #selectiontitle{
   position:relative;
@@ -232,7 +232,7 @@ z-index: 2;
   border: 2px solid rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
-  z-index: 1;
+  z-index: 10;
 }
 #rangetitle{
   background-color: rgb(200, 200, 200);
@@ -249,6 +249,7 @@ z-index: 2;
   box-sizing: border-box;
   border-bottom: 3px solid rgb(0, 0, 0);
   padding-bottom: 10px;
+  z-index: 10;
   overflow-y: auto;
 }
 #mapbuttons{
@@ -372,6 +373,7 @@ z-index: 2;
 .popup {
   position: absolute;
   display: inline-block;
+  z-index: 10;
 }
 .popuptext {
   visibility: hidden;
@@ -385,15 +387,16 @@ z-index: 2;
   text-align:justify;
   padding: 15px 20px;
   border-radius: 6px;
-  z-index: 1000;
   font-size: 14px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
+  z-index:10;
 }
 .popup:hover .popuptext {
   visibility: visible;
+  z-index: 10;
 }
 
 .titreclasse{
