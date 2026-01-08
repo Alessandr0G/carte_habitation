@@ -16,6 +16,8 @@ const LANG = {
         "Charger la map",
     map_zoom:
         "Réinitialiser le zoom",
+    titre_map:
+        "Zones optimales d'habitation dans le canton de Fribourg",
     titre_left:
         "Sélection des paramètres",
     titre_right:
@@ -35,7 +37,7 @@ const LANG = {
     titre_prim:
         "Ecole Primaire/Co à < 1km :",
     titre_uni:
-        "Collège/Université à < 1km :",
+        "Collège/Université à :",
     titre_nature:
         "Nature",
     titre_social:
@@ -64,21 +66,23 @@ const LANG = {
     imp_danger:
         `Importance des dangers naturels "faibles" et "résiduels"`,
     titre_legend:
-        "Légende",
+        "Compatibilité:",
+    titre_legend_2:
+        "Légende:",
     compat_horr:
-        "Mauvaise compatibilité",
+        "Mauvaise",
     compat_t_nul:
-        "Très faible compatibilité",
+        "Très faible",
     compat_nul:
-        "Faible compatibilité",
+        "Faible",
     compat_mid:
-        "Moyenne compatibilité",
+        "Moyenne",
     compat_bien:
-        "Bonne compatibilité",
+        "Bonne",
     compat_t_bien:
-        "Très bonne compatibilité",
+        "Très bonne",
     compat_top:
-        "Excellente compatibilité",
+        "Excellente",
     non_construction:
         "Pas constructible",
     ctn_frib:
@@ -87,6 +91,12 @@ const LANG = {
         "Afficher les Zones non appropriée à la construction",
     btn_limites_fr:
         "Afficher les limites du canton de Fribourg",
+    info_button_out:
+        "Aller vers la page",
+    info_button_in:
+        "Ouvrir la page d'information",
+    info_text:
+        "Sur cette page vous trouverez ...",
     popup_left_nature:
         `Les paramètres naturels s'intéressent au terrain et à ces caractéristiques.
         
@@ -149,6 +159,8 @@ const LANG = {
         "Karte laden",
     map_zoom:
         "Zoom zurücksetzen",
+    titre_map:
+        "Zones optimales d'habitation dans le canton de Fribourg",
     titre_left:
         "Auswahl der Parameter",
     titre_right:
@@ -168,7 +180,7 @@ const LANG = {
     titre_prim:
         "Grundschule/Orientierungsschule entfernt < 1km :",
     titre_uni:
-        "Gymnasium/Universität entfernt < 1km :",
+        "Gymnasium/Universität entfernt :",
     titre_nature:
         "Natur",
     titre_social:
@@ -196,21 +208,23 @@ const LANG = {
     imp_danger:
         `Wichtigkeit von "geringer" und "restlicher" Naturgefahren`,
     titre_legend:
-        "Bildunterschrift",
+        "Kompatibilität:",
+    titre_legend_2:
+        "Bildunterschrift:",
     compat_horr:
-        "Schlechte Kompatibilität",
+        "Schlechte",
     compat_t_nul:
-        "Sehr geringe Kompatibilität",
+        "Sehr geringe",
     compat_nul:
-        "Geringe Kompatibilität",
+        "Geringe",
     compat_mid:
-        "Mittlere Kompatibilität ",
+        "Mittlere",
     compat_bien:
-        "Gute Kompatibilität",
+        "Gute",
     compat_t_bien:
-        "Sehr gute Kompatibilität",
+        "Sehr gute",
     compat_top:
-        "Hervorragende Kompatibilität",
+        "Hervorragende",
     non_construction:
         "Innapropriées à la construction DE",
     ctn_frib:
@@ -219,6 +233,12 @@ const LANG = {
         "Afficher les Zones non appropriée à la construction DE",
     btn_limites_fr:
         "Afficher les limites du canton de Fribourg DE",
+    info_button_out:
+        "Aller vers la page DE",
+    info_button_in:
+        "Ouvrir la page d'information DE",
+    info_text:
+        "Sur cette page vous trouverez ... DE",
     popup_left_nature:
         "NATURE Dans la sélection des paramètres ci-contre, DE",
     popup_left_social:

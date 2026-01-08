@@ -160,9 +160,22 @@ testTiff('Data/Incitation/Nature/Lac_10km_WGS_boolean.tif');
 
 
 
-
-
-
+                    <tr colspan="2">
+                        <td>
+                            <div id="black"></div>
+                        </td>
+                        <td class="LegendText">
+                            <p data-i18n="non_construction"></p> 
+                        </td> 
+                    </tr>
+                    <tr colspan="2">
+                        <td>
+                            <div id="blackCont"></div>
+                        </td>
+                        <td class="LegendText">
+                            <p data-i18n="ctn_frib"></p> 
+                        </td> 
+                    </tr>
 
             <div id="legend">
                 <div id="couleurlegend">

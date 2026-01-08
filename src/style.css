@@ -20,7 +20,7 @@ table {
 .checkbox-button span {
   display: inline-block;
   padding: 8px 12px;
-  border: 2px solid #333;
+  border: 2px solid #000000;
   border-radius: 4px;
   background-color: #fff;
   color: #111;
@@ -49,7 +49,7 @@ table {
 .radio-button span {
   display: inline-block;
   padding: 8px 12px;
-  border: 2px solid #333;
+  border: 2px solid #000000;
   border-radius: 4px;
   background-color: #fff;
   color: #111;
@@ -126,33 +126,76 @@ button:focus {
   box-shadow: 0 0 0 3px rgba(43,138,62,0.15);
 }
 /* ID */
-#map{
-position:absolute;
-top: 0%;
-left: 25%;
-background-color: rgb(233, 233, 233);
-height: 100%;
-width: 50%;
+#titrepage{
+  position:absolute;
+  top: 15px;
+  left: calc(50% - (50% * 0.4));
+  align-items: center;
+  text-align: center;
+  width: calc(50% * 0.8);
+  height: auto;
+  background-color: rgb(233, 233, 233);
+  border:#000000 2px solid;
+  border-radius: 10px;
+  padding: 5px;
+  z-index: 10;
 }
-#selectiontitle{
+#informations{
   position:absolute;
   top: 0%;
   left: 0%;
+  height: 100%;
+  width: 100%;
+  background-color: #cacaca9a;
+  z-index: 1000;
+  display:inline;
+}
+#infotext{
+  position:absolute;
+  display: flex;
+  flex-direction: column;     
+  align-items: center;        
+  top: 10%;
+  left: 10%;
+  height: 80%;
+  width: 80%;
+  background-color: #e1e8e9;
+  border-radius: 10px;
+  border: 4px solid rgb(0, 0, 0);
+}
+#map{
+position:absolute;
+top: 0%;
+left: calc(25%);
+background-color: #e1e8e9;
+border: 5px solid rgb(0, 0, 0);
+height: calc(100% - 10px);
+width: calc(50% - 10px);
+z-index: 2;
+}
+#leftpart{
+  position:absolute;
+  display: flex;
+  flex-direction: column;
+  top: 0px;
+  left: 0px;
+  width: calc(25% - 2px);
+  height: calc(100% - 4px);
+  border: 2px solid rgb(0, 0, 0);
+  z-index: 1;
+}
+#selectiontitle{
+  position:relative;
   background-color: rgb(200, 200, 200);
-  border: 2px solid rgb(45, 45, 45);
-  border-width: 2px;
-  height: 120px;
-  width: 25%;
+  border: 3px solid rgb(0, 0, 0);
+  width: calc(100% - 4px);
   text-align: center;
   font-size: 20px;
 }
 #selection{
-  position:absolute;
-  top: 122px;
-  left: 0%;
-  background-color: rgb(233, 233, 233);
-  height: calc(100% - 122px);
-  width: 25%;
+  position:relative;
+  background-color: #e1e8e9;
+  width: calc(100%);
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
@@ -176,59 +219,72 @@ width: 50%;
   position: absolute;
   top: 0%;
   left: 75%;
-  background-color: rgb(233, 233, 233);
-  height: 100%;
-  width: 25%;
-  min-width: 320px;
+  background-color: #e1e8e9;
+  width: calc(25% - 3px);
+  height: calc(100% - 4px);
+  border: 2px solid rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
+  z-index: 1;
 }
 #rangetitle{
-  position: absolute;
-  top: 0%;
-  left: 0%;
   background-color: rgb(200, 200, 200);
-  border: 2px solid rgb(45, 45, 45);
-  border-width: 2px;
-  height: 100px;
-  width: 100%;
+  border: 3px solid rgb(0, 0, 0);
+  height: auto;
+  width: calc(100% - 5px) ;
   text-align: center;
   font-size: 20px;
 }
 #rangevalue{
-  background-color: rgb(233, 233, 233);
-  top: 102px;
+  background-color: #e1e8e9;
   width: 100%;
-  height: calc(100% - 450px - 90px);
-  overflow-y: scroll;
-  overflow-x: hidden;
+  height: auto ;
   box-sizing: border-box;
+  border-bottom: 3px solid rgb(0, 0, 0);
   padding-bottom: 10px;
+  overflow-y: auto;
+}
+#mapbuttons{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 130px;
+  max-height: 200px;         
+  display: flex;         
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 #maplegend{
   position:absolute;
-  top: calc(100% - 450px);
-  display: flex;
-  flex-direction: column;
+  top: calc(100% - 255px);
+  left: calc(75% - 205px);
   align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  height: 450px;
+  width: 180px;
+  height: auto;
   background-color: rgb(233, 233, 233);
   border:#000000 2px solid;
-  overflow: hidden;
-  padding: 10px;
-  box-sizing: border-box;
-  flex-shrink: 0;
+  padding: 5px;
+  z-index: 10;
+  overflow-x: hidden;
 }
-#mapbuttons{
-  position:relative;
+#maplegend2{
+  position:absolute;
+  top: calc(100% - 105px);
+  left: calc(25% + 10px);
+  align-items: center;
+  width: 180px;
+  height: auto;
+  background-color: rgb(233, 233, 233);
+  border:#000000 2px solid;
+  padding: 5px;
+  z-index: 10;
+  overflow-x: hidden;
 }
+
 #legend{
   display: flex;
   flex-direction: row;
-  overflow-x: scroll;
-  overflow-y: auto;
 }
 #couleurlegend{
   width: 60px;
@@ -301,8 +357,8 @@ width: 50%;
   position: relative;
   top: 0px;
   left: 0px;
-  width: 34px;
-  height: 20px;
+  width: 32px;
+  height: 12px;
   border: 4px solid black;
 }
 /* CLASS */
@@ -350,13 +406,19 @@ width: 50%;
   font-size: 18px;
   font-weight: 700;
   padding-top: 10px;
+  padding-left: 10px;
+}
+.titresous2{
+  font-size: 14px;
+  font-weight: 600;
+  justify-content: left ;
 }
 .titresous3{
   font-size: 14px;
   font-weight: 600;
 }
 .LegendText{
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
   text-align: left;
   margin-top: 0px;

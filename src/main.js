@@ -667,5 +667,12 @@ function zoomresetMap() {
     map.setView([46.72, 7.05], 10);
 };
 
+function InfoIn(){
+    document.getElementById('informations').style.display = "inline";
+};
+
+function InfoOut(){
+    document.getElementById('informations').style.display = "none";
+}
 
 console.log("Main JS loaded");
