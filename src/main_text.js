@@ -109,7 +109,9 @@ const LANG = {
         Il y a 6 valeurs différentes, qui vont de 0 tout à gauche à 5 tout à droite, pour chacun des curseurs. Par exemple, il est possible de mettre le curseur 
         tout à gauche pour des paramètres auxquels vous êtes indifférents (la présence de ces paramètres n'influera pas sur la compatibilité à un milieu).<br><br>
         
-        Quand vous aurez réglé tous les paramètres à votre guise, cliquez sur "Charger la map", attendez 5 à 10 secondes et le résultat apparaîtra sur la carte.`,
+        Quand vous aurez réglé tous les paramètres à votre guise, cliquez sur "Charger la map", attendez 5 à 10 secondes et le résultat apparaîtra sur la carte.
+        
+        Toutes les données géographiques utilisée pour ce projet proviennent de l'Office fédéral de topographie swisstopo <a href="https://www.swisstopo.admin.ch/fr" target="_blank" rel="noopener noreferrer">ici</a>)`,
     popup_left_nature:
         `Les paramètres naturels s'intéressent au terrain et à ses caractéristiques.
         Dans le cas de ce site, 3 types de milieu naturel sont renseignés:<br><br>
@@ -262,7 +264,9 @@ const LANG = {
         Es gibt 6 verschiedene Werte, die von 0 ganz links bis 5 ganz rechts für jeden der Schieberegler reichen. 
         Beispielsweise können Sie den Schieberegler für Parameter, die Ihnen gleichgültig sind, ganz nach links stellen (das Vorhandensein dieser Parameter hat keinen Einfluss auf die Kompatibilität mit einer Umgebung).<br><br>
         
-        Wenn Sie alle Einstellungen nach Ihren Wünschen vorgenommen haben, klicken Sie auf "Karte laden", warten Sie 5 bis 10 Sekunden und das Ergebnis wird auf der Karte angezeigt.`,
+        Wenn Sie alle Einstellungen nach Ihren Wünschen vorgenommen haben, klicken Sie auf "Karte laden", warten Sie 5 bis 10 Sekunden und das Ergebnis wird auf der Karte angezeigt.
+        
+        Alle für dieses Projekt verwendeten geografischen Daten stammen vom Bundesamt für Landestopografie swisstopo <a href="https://www.swisstopo.admin.ch/de" target="_blank" rel="noopener noreferrer">hier</a>).`,
     popup_left_nature:
         `Die natürlichen Parameter beziehen sich auf das Gelände und seine Eigenschaften.
         Im Falle dieses Standorts werden drei Arten von natürlichen Lebensräumen angegeben:<br><br>
