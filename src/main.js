@@ -486,7 +486,6 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
 };
 //TEst
 function createRasterCanvas(result) {
-  console.log(result.width, result.height, result.data.slice(0, 10));
   const uniqueValues = Array.from(new Set(result.data));
   console.log('Unique values in data:', uniqueValues);
     if (result.data.length !== result.width * result.height) {
@@ -501,8 +500,6 @@ function createRasterCanvas(result) {
     const img = ctx.createImageData(result.width, result.height);
     
     console.log("R_mean:", result.mean_r);
-    console.log("dark red threshold:", (-10)*result.mean_r);
-    console.log("blue threshold:", (8.5)*result.mean_r);
 
     for (let i = 0; i < result.data.length; i++) {
         const v = result.data[i]; // 0,1,2
@@ -622,14 +619,6 @@ async function loadMap() {
     exclusionlayer();
     frlayer();
 };
-// HERE 2
-
-function sumLayers() {
-// a implementer
-};
-
-
-
 
 function exclusionlayer() {
     const exclusionCheckbox = document.getElementById('exclusion');
