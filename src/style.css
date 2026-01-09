@@ -33,7 +33,6 @@ table {
   color: #fff;
   border-color: #ffffff;
 }
-/* focus state for keyboard accessibility */
 .checkbox-button input[type="checkbox"]:focus + span {
   box-shadow: 0 0 0 3px rgba(43,138,62,0.15);
 }
@@ -62,7 +61,6 @@ table {
   color: #fff;
   border-color: #ffffff;
 }
-/* focus state for keyboard accessibility */
 .radio-button input[type="radio"]:focus + span {
   box-shadow: 0 0 0 3px rgba(43,138,62,0.15);
 }
@@ -249,7 +247,6 @@ button:focus {
   box-sizing: border-box;
   border-bottom: 3px solid rgb(0, 0, 0);
   padding-bottom: 10px;
-
   overflow-y: auto;
 }
 #mapbuttons{
@@ -397,7 +394,6 @@ button:focus {
   visibility: visible;
   z-index: 10;
 }
-
 .titreclasse{
   font-size: 22px;
   font-weight: 900;

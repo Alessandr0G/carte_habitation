@@ -1,4 +1,4 @@
-// to write in html : data-i18n="popup_right"
+// Dans html : data-i18n="popup_right"
 
 const LANG = {
   fr: {

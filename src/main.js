@@ -17,14 +17,12 @@ MapCreation();
 async function addLayer(
     group,
     tiffUrl,
-    color = [255, 0, 0], // RGB
+    color = [255, 0, 0],
     opacityValue = 0.6,
     valeurmin = 1,
     valeurmax = 2
 ) {
     const raster = await loadRaster(tiffUrl);
-
-    // if (currentLayer) map.removeLayer(currentLayer);
 
     // Create canvas
     const canvas = document.createElement('canvas');
@@ -60,7 +58,6 @@ async function addLayer(
 
     layer.addTo(map);
 
-    // 👇 STORE BY GROUP
     if (group === "exclusion") {
         exclusionLayer.push(layer);
     } else if (group === "frlayer") {
@@ -78,7 +75,7 @@ const dangerRadio1 = document.querySelector('input[name="dangerfm"][value="1"]')
 
 dangerSlider.addEventListener('input', () => {
     if (Number(dangerSlider.value) === 0) {
-        dangerRadio1.checked = true; // select the radio button
+        dangerRadio1.checked = true;
     } else {
         dangerRadio0.checked = true;
     }
@@ -242,9 +239,6 @@ function distselection(){
   };
 };
 
-
-// HERE 1
-
 async function loadRaster(url) {
     const response = await fetch(url, {
         cache: "no-store",
@@ -259,9 +253,8 @@ async function loadRaster(url) {
 
     const arrayBuffer = await response.arrayBuffer();
 
-    // SAFETY CHECK (very useful)
     if (arrayBuffer.byteLength < 100) {
-        throw new Error(`Invalid TIFF file (too small): ${url}`);
+        throw new Error(`Error TIFF file (too small): ${url}`);
     }
     
     console.log("Loaded file:", url, "size:", arrayBuffer.byteLength);
@@ -292,7 +285,6 @@ function mergeBooleanLayers(r1, r2) {
         const v1 = r1.data[i] > 0.5 ? 1 : 0;
         const v2 = r2.data[i] > 0.5 ? 1 : 0;
 
-        // OR logic (presence in either distance)
         merged[i] = v1 || v2 ? 1 : 0;
     }
 
@@ -396,8 +388,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
 
     const sum = new Float32Array(layer_Avalanche.data.length);
 
-    // Normalize values: treat nodata / invalid extremes as 0, and
-    // convert any truthy raster values to boolean 1 (threshold > 0.5).
+    // conversion to boolean 1 (threshold > 0.5).
     for (let i = 0; i < layer_Avalanche.data.length; i++) {
         let v0 = layer_Frt_5.data[i];
         let v1 = layer_Avalanche.data[i];
@@ -416,7 +407,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         let v14 = layer_Uni.data[i];
         let v15 = layer_gare.data[i];
 
-        // Guard against NaN, Infinity, or sentinel large negative values
+        // No NaN, Infinity, or large negative values
         if (!Number.isFinite(v1) || Math.abs(v1) > 1e30) v1 = 0;
         if (!Number.isFinite(v2) || Math.abs(v2) > 1e30) v2 = 0;
         if (!Number.isFinite(v3) || Math.abs(v3) > 1e30) v3 = 0;
@@ -433,7 +424,6 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         if (!Number.isFinite(v14) || Math.abs(v14) > 1e30) v14 = 0;
         if (!Number.isFinite(v15) || Math.abs(v15) > 1e30) v15 = 0;
 
-        // Some boolean rasters use 255 or other positive values for "true".
         v0 = v0 > 0.5 ? 1 : NaN;
         v1 = v1 > 0.5 ? 1 : NaN;
         v2 = v2 > 0.5 ? 1 : NaN;
@@ -451,8 +441,6 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         v14 = v14 > 0.5 ? 1 : NaN;
         v15 = v15 > 0.5 ? 1 : NaN;
 
-        // Start as no-data. Only set a numeric value if at least one
-        // contributing raster cell is valid for this pixel.
         let acc = 0;
         let hasValue = false;
 
@@ -475,7 +463,7 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
 
         sum[i] = hasValue ? acc : NaN;
     };
-    console.log('Sum data sample:', sum.slice(1500, 2600));
+
     return {
         data: sum,
         width: layer_Avalanche.width,
@@ -484,10 +472,10 @@ async function sumBooleanTiffs(url1, url2, url3, url4, url5, url6, url7, url8, u
         mean_r: mean_x
     };
 };
-//TEst
+
 function createRasterCanvas(result) {
   const uniqueValues = Array.from(new Set(result.data));
-  console.log('Unique values in data:', uniqueValues);
+
     if (result.data.length !== result.width * result.height) {
         throw new Error('Raster size mismatch');
     }
@@ -584,7 +572,7 @@ async function addSummedLayer(files_url = [
         files_url[17], files_url[18], files_url[19], files_url[20],
         files_url[21], files_url[22]
     );
-    console.log(result.bbox);
+    // console.log(result.bbox);
 
     if (currentLayer) map.removeLayer(currentLayer);
 
@@ -598,7 +586,6 @@ async function addSummedLayer(files_url = [
         ],
         { opacity: 0.8 }
     );
-    console.log("finally adding summed layer");
     currentLayer.addTo(map);
 };
 
@@ -632,7 +619,6 @@ function exclusionlayer() {
         addLayer("exclusion",'Data/Exclusion/G_spon_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
         addLayer("exclusion",'Data/Exclusion/Lave_torr_exclusion_WGS_boolean.tif', [0, 0, 0], 1);
     } else {
-        // ✅ REMOVE EACH LAYER
         exclusionLayer.forEach(layer => {
             map.removeLayer(layer);
         });
@@ -659,12 +645,10 @@ function zoomresetMap() {
 function InfoIn(){
     document.getElementById('informations').style.display = "flex";
 };
-
 function InfoOut(){
     document.getElementById('informations').style.display = "none";
-}
+};
 
-// Popup hover event listeners
 const popupElements = document.querySelectorAll('.popup');
 popupElements.forEach(popup => {
     popup.addEventListener('mouseenter', function() {
@@ -681,8 +665,5 @@ popupElements.forEach(popup => {
         }
     });
 });
-
-console.log("Main JS loaded");
-
 
 console.log("Main JS loaded");
