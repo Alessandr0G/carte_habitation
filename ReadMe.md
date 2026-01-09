@@ -33,8 +33,15 @@ Finalement, la somme des couches est effectué en tenant en compte des poids sé
 
 ## Visualisation de la carte
 
-Après que la somme soit effetuée, 
+Après que la somme soit effetuée, le résultat et re-stocké dans un "Array" et dans un canvas avec les couleurs approprié en fonction du résultat de la somme pour chaque pixel. Ce Canvas est ensuite ajouté à la carte Leaflet afin d'être visible sur la page, en plus des limites du cantons et des zones innapropriées à la construction (si elles sont actives).
+
+## Le bilinguisme
+
+Dans le cadre de ce projet, je me suis intéressé à la manière de changer la langue d'un site. Pour ce projet, les différentes formes textuelles ont été écrites dans un deuxième fichier JS "main_text.js" Pour que cela fonction, un dictionnaire à été utilisé et est interrogé à chaque clic sur un bouton de changement de langue.
 
 ## Lancer le projet
-Installer node.js
-et lancer un server local à travers l'invit de commande
+
+Le projet ne peut pas fonctionner sur un server local de live server sur visual studio.
+Dans le cadre de la création de ce projet, l'alternative node.js a été utilisé. En bref il faut:
+- Installer node.js
+- Lancer un server local à travers l'invit de commande et la fonction npm run dev, après avoir setup le node dans le fichier où se trouve votre index html.
