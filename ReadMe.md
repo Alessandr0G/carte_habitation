@@ -1,4 +1,6 @@
 # La création du projet
+
+## Objectif
 Le projet a
 
 parler de l'IA
@@ -16,3 +18,7 @@ parler de l'IA
 
 
 ## Visualisation de la carte
+
+## Lancer le projet
+Installer node.js
+et lancer un server local à travers l'invit de commande
